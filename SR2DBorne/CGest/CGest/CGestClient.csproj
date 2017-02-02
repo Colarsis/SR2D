@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EB731FDE-B9D1-4C69-B66E-D5B888BB43D5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CGest</RootNamespace>
+    <AssemblyName>CGestClient</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publier\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ColarsisUserControls">
+      <HintPath>..\..\..\..\..\..\..\CGest\CGestClient\ColarsisUserControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql, Version=2.2.0.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\CGest\CGestClient\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Database\CGestDataset.cs" />
+    <Compile Include="Forms\clientInfosForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\clientInfosForm.Designer.cs">
+      <DependentUpon>clientInfosForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\connectionNamePopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\connectionNamePopup.Designer.cs">
+      <DependentUpon>connectionNamePopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\employeesAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\employeesAddForm.Designer.cs">
+      <DependentUpon>employeesAddForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\employeesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\employeesForm.Designer.cs">
+      <DependentUpon>employeesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\employeesModifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\employeesModifyForm.Designer.cs">
+      <DependentUpon>employeesModifyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\eventAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\eventAddForm.Designer.cs">
+      <DependentUpon>eventAddForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\eventCalendarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\eventCalendarForm.Designer.cs">
+      <DependentUpon>eventCalendarForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\eventForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\eventForm.Designer.cs">
+      <DependentUpon>eventForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\eventModifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\eventModifyForm.Designer.cs">
+      <DependentUpon>eventModifyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\materiauxModifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\materiauxModifyForm.Designer.cs">
+      <DependentUpon>materiauxModifyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\materiauxAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\materiauxAddForm.Designer.cs">
+      <DependentUpon>materiauxAddForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\materiauxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\materiauxForm.Designer.cs">
+      <DependentUpon>materiauxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\chantierForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\chantierForm.Designer.cs">
+      <DependentUpon>chantierForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\clientAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\clientAddForm.Designer.cs">
+      <DependentUpon>clientAddForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\chantierModifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\chantierModifyForm.Designer.cs">
+      <DependentUpon>chantierModifyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\clientModifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\clientModifyForm.Designer.cs">
+      <DependentUpon>clientModifyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\chantierAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\chantierAddForm.Designer.cs">
+      <DependentUpon>chantierAddForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\clientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\clientForm.Designer.cs">
+      <DependentUpon>clientForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ConnectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConnectionForm.Designer.cs">
+      <DependentUpon>ConnectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\meetingsAddFormcs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\meetingsAddFormcs.Designer.cs">
+      <DependentUpon>meetingsAddFormcs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\meetingsEndForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\meetingsEndForm.Designer.cs">
+      <DependentUpon>meetingsEndForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MeetingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MeetingsForm.Designer.cs">
+      <DependentUpon>MeetingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\meetingsInfosForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\meetingsInfosForm.Designer.cs">
+      <DependentUpon>meetingsInfosForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\meetingsModifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\meetingsModifyForm.Designer.cs">
+      <DependentUpon>meetingsModifyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\serverConnectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\serverConnectForm.Designer.cs">
+      <DependentUpon>serverConnectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\serverConnectionError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\serverConnectionError.Designer.cs">
+      <DependentUpon>serverConnectionError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\stockAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\stockAddForm.Designer.cs">
+      <DependentUpon>stockAddForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\stockForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\stockForm.Designer.cs">
+      <DependentUpon>stockForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\stockModifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\stockModifyForm.Designer.cs">
+      <DependentUpon>stockModifyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\unitAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\unitAddForm.Designer.cs">
+      <DependentUpon>unitAddForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\unitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\unitForm.Designer.cs">
+      <DependentUpon>unitForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\unitModifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\unitModifyForm.Designer.cs">
+      <DependentUpon>unitModifyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Network\CGestClient.cs" />
+    <Compile Include="Network\CGestNetworkClientControl.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\CGestClassBound.cs" />
+    <Compile Include="Utilities\CGestURLs.cs" />
+    <Compile Include="Utilities\CGestError.cs" />
+    <Compile Include="Database\CGestConnection.cs" />
+    <Compile Include="Database\CGestDatabase.cs" />
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\CGestLogger.cs" />
+    <Compile Include="Forms\initForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\initForm.Designer.cs">
+      <DependentUpon>initForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\TablesUtilities.cs" />
+    <EmbeddedResource Include="Forms\clientInfosFOrm.resx">
+      <DependentUpon>clientInfosForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\connectionNamePopup.resx">
+      <DependentUpon>connectionNamePopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\employeesAddForm.resx">
+      <DependentUpon>employeesAddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\employeesForm.resx">
+      <DependentUpon>employeesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\employeesModifyForm.resx">
+      <DependentUpon>employeesModifyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\eventAddForm.resx">
+      <DependentUpon>eventAddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\eventCalendarForm.resx">
+      <DependentUpon>eventCalendarForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\eventForm.resx">
+      <DependentUpon>eventForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\eventModifyForm.resx">
+      <DependentUpon>eventModifyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\materiauxModifyForm.resx">
+      <DependentUpon>materiauxModifyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\materiauxAddForm.resx">
+      <DependentUpon>materiauxAddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\materiauxForm.resx">
+      <DependentUpon>materiauxForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\chantierForm.resx">
+      <DependentUpon>chantierForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\clientAddForm.resx">
+      <DependentUpon>clientAddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\chantierModifyForm.resx">
+      <DependentUpon>chantierModifyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\clientModifyForm.resx">
+      <DependentUpon>clientModifyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\chantierAddForm.resx">
+      <DependentUpon>chantierAddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\clientForm.resx">
+      <DependentUpon>clientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConnectionForm.resx">
+      <DependentUpon>ConnectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\initForm.resx">
+      <DependentUpon>initForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\meetingsAddFormcs.resx">
+      <DependentUpon>meetingsAddFormcs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\meetingsEndForm.resx">
+      <DependentUpon>meetingsEndForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MeetingsForm.resx">
+      <DependentUpon>MeetingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\meetingsInfosForm.resx">
+      <DependentUpon>meetingsInfosForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\meetingsModifyForm.resx">
+      <DependentUpon>meetingsModifyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\serverConnectForm.resx">
+      <DependentUpon>serverConnectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\serverConnectionError.resx">
+      <DependentUpon>serverConnectionError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\stockAddForm.resx">
+      <DependentUpon>stockAddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\stockForm.resx">
+      <DependentUpon>stockForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\stockModifyForm.resx">
+      <DependentUpon>stockModifyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\unitAddForm.resx">
+      <DependentUpon>unitAddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\unitForm.resx">
+      <DependentUpon>unitForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\unitModifyForm.resx">
+      <DependentUpon>unitModifyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 et x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

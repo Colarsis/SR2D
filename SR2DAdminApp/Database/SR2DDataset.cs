@@ -256,16 +256,16 @@ namespace SR2DAdminApp.Database
                 varsDataAdapter.SelectCommand = new MySqlCommand("select * from vars");
                 varsDataAdapter.SelectCommand.Connection = connection.DatabaseConnection;
 
-                varsDataAdapter.InsertCommand = new MySqlCommand("insert into vars(key, value) values (@k, @v)", connection.DatabaseConnection);
+                varsDataAdapter.InsertCommand = new MySqlCommand("insert into vars(k, value) values (@k, @v)", connection.DatabaseConnection);
                 varsDataAdapter.InsertCommand.Connection = connection.DatabaseConnection;
                 varsDataAdapter.InsertCommand.Parameters.Add(new MySqlParameter("k", MySqlDbType.Text));
                 varsDataAdapter.InsertCommand.Parameters.Add(new MySqlParameter("v", MySqlDbType.Text));
                 varsDataAdapter.InsertCommand.Parameters[0].Direction = ParameterDirection.Input;
                 varsDataAdapter.InsertCommand.Parameters[1].Direction = ParameterDirection.Input;
-                varsDataAdapter.InsertCommand.Parameters[0].SourceColumn = "key";
+                varsDataAdapter.InsertCommand.Parameters[0].SourceColumn = "k";
                 varsDataAdapter.InsertCommand.Parameters[1].SourceColumn = "value";
 
-                varsDataAdapter.UpdateCommand = new MySqlCommand("update vars set key=@k, value=@v where id = @id", connection.DatabaseConnection);
+                varsDataAdapter.UpdateCommand = new MySqlCommand("update vars set k=@k, value=@v where id=@id", connection.DatabaseConnection);
                 varsDataAdapter.UpdateCommand.Connection = connection.DatabaseConnection;
                 varsDataAdapter.UpdateCommand.Parameters.Add(new MySqlParameter("k", MySqlDbType.Text));
                 varsDataAdapter.UpdateCommand.Parameters.Add(new MySqlParameter("v", MySqlDbType.Text));
@@ -273,7 +273,7 @@ namespace SR2DAdminApp.Database
                 varsDataAdapter.UpdateCommand.Parameters[0].Direction = ParameterDirection.Input;
                 varsDataAdapter.UpdateCommand.Parameters[1].Direction = ParameterDirection.Input;
                 varsDataAdapter.UpdateCommand.Parameters[2].Direction = ParameterDirection.Input;
-                varsDataAdapter.UpdateCommand.Parameters[0].SourceColumn = "key";
+                varsDataAdapter.UpdateCommand.Parameters[0].SourceColumn = "k";
                 varsDataAdapter.UpdateCommand.Parameters[1].SourceColumn = "value";
                 varsDataAdapter.UpdateCommand.Parameters[2].SourceColumn = "id";
 
@@ -325,7 +325,7 @@ namespace SR2DAdminApp.Database
                 DataColumn[] foodDC = { null };
                 DataColumn[] foodTypesDC = { null };
                 DataColumn[] bookingDC = { null };
-                DataColumn[] authFoodTypesDC = { null };
+                DataColumn[] varsDC = { null };
                 DataColumn[] excludedFoodTypesDC = { null };
 
                 //Set column to be the id column for table
@@ -333,7 +333,7 @@ namespace SR2DAdminApp.Database
                 foodDC[0] = foodTable.Columns["id"];
                 foodTypesDC[0] = foodTypesTable.Columns["id"];
                 bookingDC[0] = bookingTable.Columns["id"];
-                authFoodTypesDC[0] = varsTable.Columns["id"];
+                varsDC[0] = varsTable.Columns["id"];
                 excludedFoodTypesDC[0] = excludedFoodTypesTable.Columns["id"];
 
                 //Set table primary key (id) column
@@ -341,7 +341,7 @@ namespace SR2DAdminApp.Database
                 foodTable.PrimaryKey = foodDC;
                 foodTypesTable.PrimaryKey = foodTypesDC;
                 bookingTable.PrimaryKey = bookingDC;
-                varsTable.PrimaryKey = authFoodTypesDC;
+                varsTable.PrimaryKey = varsDC;
                 excludedFoodTypesTable.PrimaryKey = excludedFoodTypesDC;
 
                 //Add table to the dataset

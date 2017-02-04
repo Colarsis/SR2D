@@ -3,6 +3,7 @@ using CGest.Utilities;
 using LiveCharts;
 using LiveCharts.Configurations;
 using LiveCharts.Wpf;
+using MySql.Data.MySqlClient;
 using SR2DAdminApp.Database;
 using SR2DAdminApp.Utilities;
 using System;
@@ -151,74 +152,15 @@ namespace SR2DAdminApp.Forms
 
             #endregion
 
+            setServiceMode();
+
         }
 
         public void setServiceMode()
         {
-            int state = (int)(TablesUtilities.getVarFromId("1", db.Ds).ItemArray[2]);
+            int state = int.Parse(TablesUtilities.getVarFromId("1", db.Ds).ItemArray[2].ToString());
 
-            switch(state)
-            {
-                case 0:
-                    updateButton(ServiceStates.Stopped);
-                    tabControl1.Enabled = false;
-                    objectListView1.Visible = false;
-                    cartesianChart1.Visible = false;
-                    cartesianChart2.Visible = false;
-                    label3.Visible = true;
-                    label4.Visible = true;
-                    label5.Visible = true;
-                    break;
-                case 1:
-                    updateButton(ServiceStates.Preparation);
-                    tabControl1.Enabled = true;
-                    cartesianChart1.Visible = false;
-                    cartesianChart2.Visible = false;
-                    label3.Visible = true;
-                    label4.Visible = true;
-                    label5.Visible = false;
-                    break;
-                case 2:
-                    updateButton(ServiceStates.Booking);
-                    tabControl1.Enabled = true;
-                    objectListView1.Visible = false;
-                    cartesianChart1.Visible = true;
-                    cartesianChart2.Visible = true;
-                    label3.Visible = false;
-                    label4.Visible = true;
-                    label5.Visible = true;
-                    break;
-                case 3:
-                    updateButton(ServiceStates.Concoction);
-                    tabControl1.Enabled = true;
-                    objectListView1.Visible = false;
-                    cartesianChart1.Visible = true;
-                    cartesianChart2.Visible = true;
-                    label3.Visible = false;
-                    label4.Visible = false;
-                    label5.Visible = true;
-                    break;
-                case 4:
-                    updateButton(ServiceStates.Distribution);
-                    tabControl1.Enabled = true;
-                    objectListView1.Visible = false;
-                    cartesianChart1.Visible = true;
-                    cartesianChart2.Visible = true;
-                    label3.Visible = false;
-                    label4.Visible = false;
-                    label5.Visible = true;
-                    break;
-                case 5:
-                    updateButton(ServiceStates.Ended);
-                    tabControl1.Enabled = true;
-                    objectListView1.Visible = false;
-                    cartesianChart1.Visible = true;
-                    cartesianChart2.Visible = true;
-                    label3.Visible = false;
-                    label4.Visible = false;
-                    label5.Visible = true;
-                    break;
-            }            
+            setServiceMode(state);
         }
 
         public void setServiceMode(int state)
@@ -240,6 +182,7 @@ namespace SR2DAdminApp.Forms
                     currentStatus = ServiceStates.Preparation;
                     updateButton(ServiceStates.Preparation);
                     tabControl1.Enabled = true;
+                    objectListView1.Visible = true;
                     cartesianChart1.Visible = false;
                     cartesianChart2.Visible = false;
                     label3.Visible = true;
@@ -297,16 +240,155 @@ namespace SR2DAdminApp.Forms
         {
             if (this.InvokeRequired)
             {
-                thisCallback c = new thisCallback(guiUpdate);
-                Invoke(c);
-                thisCallback c2 = new thisCallback(populateDispList);
-                Invoke(c2);
+
+                setServiceMode();
+
+                if (currentStatus != ServiceStates.Stopped)
+                {
+                    thisCallback c = new thisCallback(guiUpdate);
+                    Invoke(c);
+                }         
             }
             else
             {
-                guiUpdate();
-                populateDispList();
+
+                setServiceMode();
+
+                if(currentStatus != ServiceStates.Stopped)
+                {
+                    guiUpdate();
+                }      
             }
+        }
+
+        public void resetBooking()
+        {
+            MySqlCommand reset = new MySqlCommand("truncate table booking; update badges set passed=0, retired=0;", db.Connection.DatabaseConnection);
+
+            reset.ExecuteNonQuery();
+        }
+
+        public bool updateQuantities()
+        {
+            foreach(ListViewItem i in objectListView1.Items)
+            {
+                DataRow dr = TablesUtilities.getFoodFromId(i.SubItems[0].Text, db.Ds);
+
+                object[] array = dr.ItemArray;
+
+                if(dr == null)
+                {
+                    return false;
+                }
+
+                if(int.Parse(i.SubItems[3].Text) < 0)
+                {
+                    return false;
+                }
+
+                array[2] = i.SubItems[3].Text;
+
+                db.Ds.Dataset.Tables["food"].Rows.Find(dr.ItemArray[0].ToString()).ItemArray = array;
+            }
+
+            db.Ds.updateDatabase(new string[] { "food" });
+
+            return true;
+        }
+
+        public void setBDDServiceMode(int state)
+        {
+            DataRow dr = TablesUtilities.getVarFromId("1", db.Ds);
+
+            object[] array = dr.ItemArray;
+
+            array[2] = state.ToString();
+
+            db.Ds.Dataset.Tables["vars"].Rows.Find(dr.ItemArray[0].ToString()).ItemArray = array;
+
+            db.Ds.updateDatabase(new string[] { "vars" });
+        }
+
+        public void serviceModeChangeAction(int state)
+        { 
+
+            switch(state)
+            {
+                case 0:
+                    DialogResult msg4 = MessageBox.Show("Etes vous sûre de vouloir terminer le service?", "Terminer le service", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if(msg4 == DialogResult.Yes)
+                    {
+                        setServiceMode(0);
+                        setBDDServiceMode(0);
+                    }
+                    else
+                    {
+                        setServiceMode(1);
+                    }
+                    break;
+                case 1:
+                    resetBooking();
+                    setServiceMode(1);
+                    populateDispList();
+                    setBDDServiceMode(1);
+                    break;
+                case 2:
+                    DialogResult msg = MessageBox.Show("Etes vous sûre de vouloir ouvrir les réservations? Vous ne pourrez alors plus modifier les quantitées disponibles.", "Ouvrir les réservations", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if(msg == DialogResult.Yes)
+                    {
+                        if(updateQuantities())
+                        {
+                            setServiceMode(2);
+                            setBDDServiceMode(2);
+                        }
+                        else
+                        {
+                            setServiceMode(1);
+                            serviceModeChangeAction(1);
+
+                            DialogResult m = MessageBox.Show("Une erreur s'est produite, veuillez vérifier qu'aucune quantitée n'est négative.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        setServiceMode(1);
+                        serviceModeChangeAction(1);
+                    }
+                    break;
+                case 3:
+                    DialogResult msg2 = MessageBox.Show("Etes vous sûre de vouloir fermer les réservations?", "Fermer les réservations", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if(msg2 == DialogResult.Yes)
+                    {
+                        setServiceMode(3);
+                        setBDDServiceMode(3);
+                    }
+                    else
+                    {
+                        setServiceMode(2);
+                    }
+                    break;
+                case 4:
+                    setServiceMode(4);
+                    setBDDServiceMode(4);
+                    break;
+                case 5:
+                    DialogResult msg3 = MessageBox.Show("Etes vous sûre de vouloir terminer la distribution?", "Terminer la distribution", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if(msg3 == DialogResult.Yes)
+                    {
+                        setServiceMode(5);
+                        setBDDServiceMode(5);
+                    }
+                    else
+                    {
+                        setServiceMode(4);
+                    }
+                    break;
+            }
+
         }
 
         public void updateButton(ServiceStates state)
@@ -428,7 +510,16 @@ namespace SR2DAdminApp.Forms
 
         private void actionButton_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("");
+            int state = (int)currentStatus;
+
+            state++;
+
+            if(state > 5)
+            {
+                state = 0;
+            }
+
+            serviceModeChangeAction(state);
         }
 
     }

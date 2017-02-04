@@ -138,47 +138,11 @@
     <Compile Include="Forms\employeesModifyForm.Designer.cs">
       <DependentUpon>employeesModifyForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\materiauxModifyForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\materiauxModifyForm.Designer.cs">
-      <DependentUpon>materiauxModifyForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\materiauxAddForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\materiauxAddForm.Designer.cs">
-      <DependentUpon>materiauxAddForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\materiauxForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\materiauxForm.Designer.cs">
-      <DependentUpon>materiauxForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\chantierForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\chantierForm.Designer.cs">
-      <DependentUpon>chantierForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\chantierModifyForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\chantierModifyForm.Designer.cs">
-      <DependentUpon>chantierModifyForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\userModifyForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\userModifyForm.Designer.cs">
       <DependentUpon>userModifyForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\chantierAddForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\chantierAddForm.Designer.cs">
-      <DependentUpon>chantierAddForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\userForm.cs">
       <SubType>Form</SubType>
@@ -191,36 +155,6 @@
     </Compile>
     <Compile Include="Forms\ConnectionForm.Designer.cs">
       <DependentUpon>ConnectionForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\meetingsAddFormcs.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\meetingsAddFormcs.Designer.cs">
-      <DependentUpon>meetingsAddFormcs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\meetingsEndForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\meetingsEndForm.Designer.cs">
-      <DependentUpon>meetingsEndForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\MeetingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\MeetingsForm.Designer.cs">
-      <DependentUpon>MeetingsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\meetingsInfosForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\meetingsInfosForm.Designer.cs">
-      <DependentUpon>meetingsInfosForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\meetingsModifyForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\meetingsModifyForm.Designer.cs">
-      <DependentUpon>meetingsModifyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\serverConnectForm.cs">
       <SubType>Form</SubType>
@@ -323,26 +257,8 @@
     <EmbeddedResource Include="Forms\employeesModifyForm.resx">
       <DependentUpon>employeesModifyForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\materiauxModifyForm.resx">
-      <DependentUpon>materiauxModifyForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\materiauxAddForm.resx">
-      <DependentUpon>materiauxAddForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\materiauxForm.resx">
-      <DependentUpon>materiauxForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\chantierForm.resx">
-      <DependentUpon>chantierForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\chantierModifyForm.resx">
-      <DependentUpon>chantierModifyForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\userModifyForm.resx">
       <DependentUpon>userModifyForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\chantierAddForm.resx">
-      <DependentUpon>chantierAddForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\userForm.resx">
       <DependentUpon>userForm.cs</DependentUpon>
@@ -355,21 +271,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\meetingsAddFormcs.resx">
-      <DependentUpon>meetingsAddFormcs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\meetingsEndForm.resx">
-      <DependentUpon>meetingsEndForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MeetingsForm.resx">
-      <DependentUpon>MeetingsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\meetingsInfosForm.resx">
-      <DependentUpon>meetingsInfosForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\meetingsModifyForm.resx">
-      <DependentUpon>meetingsModifyForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\serverConnectForm.resx">
       <DependentUpon>serverConnectForm.cs</DependentUpon>

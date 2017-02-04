@@ -31,8 +31,6 @@ namespace SR2DAdminApp.Database
         {
             string connectionString = "server=" + datasource + ";port=" + port + ";uid=" + user + ";pwd=" + password + ";database=" + databaseName + ";";
 
-            //string connectionString = "server=127.0.0.1;port=3306;uid=root;pwd=SR2D_BDD;database=dev;";
-
             databaseConnection = new MySqlConnection(connectionString);
 
             try

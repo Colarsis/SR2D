@@ -428,7 +428,7 @@ namespace SR2DAdminApp.Forms
 
         private void actionButton_Click(object sender, EventArgs e)
         {
-
+            Console.WriteLine("");
         }
 
     }

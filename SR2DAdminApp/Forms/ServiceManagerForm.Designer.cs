@@ -32,20 +32,21 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
             this.objectListView1 = new BrightIdeasSoftware.ObjectListView();
             this.id = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.name = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.type = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.quantity = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
             this.label1 = new System.Windows.Forms.Label();
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
@@ -96,6 +97,17 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Disponibilités";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(75, 248);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(402, 29);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Service non disponible actuellement";
+            this.label5.Visible = false;
             // 
             // objectListView1
             // 
@@ -172,6 +184,17 @@
             this.tabPage2.Text = "Suivi";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(82, 264);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(402, 29);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Service non disponible actuellement";
+            this.label3.Visible = false;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -209,6 +232,7 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label4);
+            this.tabPage3.Controls.Add(this.flowLayoutPanel1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -216,17 +240,6 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Préparation";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(82, 264);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(402, 29);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Service non disponible actuellement";
-            this.label3.Visible = false;
             // 
             // label4
             // 
@@ -239,16 +252,12 @@
             this.label4.Text = "Service non disponible actuellement";
             this.label4.Visible = false;
             // 
-            // label5
+            // flowLayoutPanel1
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(75, 248);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(402, 29);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Service non disponible actuellement";
-            this.label5.Visible = false;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 6);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(540, 513);
+            this.flowLayoutPanel1.TabIndex = 6;
             // 
             // ServiceManagerForm
             // 
@@ -295,5 +304,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

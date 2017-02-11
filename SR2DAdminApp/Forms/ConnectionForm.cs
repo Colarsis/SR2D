@@ -330,7 +330,7 @@ namespace SR2DAdminApp.Forms
                 SR2DDatabase db = new SR2DDatabase();
 
                 //Connecte
-                SR2DMessages m = db.connect(userTextBox.Text, passwordTextBox.Text, "postgres", sourceTextBox.Text, portNumUpDown.Value.ToString());
+                SR2DMessages m = db.connect(userTextBox.Text, passwordTextBox.Text, pathTextBox.Text, sourceTextBox.Text, portNumUpDown.Value.ToString());
 
                 if (m == SR2DMessages.SUC_100)
                 {
@@ -342,11 +342,6 @@ namespace SR2DAdminApp.Forms
 
                             this.returnStatut = true;
                             this.Close(); 
-                        }
-                        else
-                        {
-                            this.returnStatut = false;
-                            this.Close();
                         }
                 }
                 else

@@ -473,27 +473,20 @@ namespace SR2DAdminApp
 
                                 DialogResult r = connectionForm.ShowDialog();
 
-                                while (r != DialogResult.OK && connectionForm.returnStatut != true)
+                                while (r != DialogResult.OK || connectionForm.returnStatut != true)
                                 {
                                     connectionForm = new ConnectionForm(this);
 
                                     r = connectionForm.ShowDialog();
                                 }
 
+
+
                                 Console.WriteLine("conected");
                             }
                             else
                             {
                                 updateStatutOnWorker("Mise a jour de la base de donnée", 35);
-
-                                /*if (database.updateDatabase(node.ChildNodes[0].Attributes[0].Value))
-                                {
-
-                                }
-                                else
-                                {
-                                    return false;
-                                }*/
                             }
 
                         }

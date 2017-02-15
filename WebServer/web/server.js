@@ -69,6 +69,7 @@ client.on('data', function(data)
 		{
 			case "update":
 				sendUpdate();
+				client.write("at=update;m=updated;");
 				break;
 			case "ping":
 				client.write("at=ping;m=pong;");

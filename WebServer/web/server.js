@@ -7,10 +7,18 @@ var path = require("path");
 var cfg = require("./configFile");
 var mysql = require('mysql');
 var reserv = require('./reserv.js');
+var menu = require('./menu.js');
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
 var net = require('net');
 var async = require('async');
+var bodyP = require('body-parser');
+
+app.use(bodyP.json());
+app.use(bodyP.urlencoded(
+{
+	extended: true
+})); 
 
 var clientStatus = false;
 
@@ -175,6 +183,9 @@ app.get('/', function (req, res)
 
 app.get('/reserv', function (req, res) 
 {
+
+	console.log('Reserv asked');
+
 	if(clientStatus)
 	{
 		reserv.generatePage(url.parse(req.url).query, function(page)
@@ -189,18 +200,109 @@ app.get('/reserv', function (req, res)
 	
 });
 
+app.get('/menu', function (req, res) 
+{
+
+	console.log('Menu asked');
+
+	if(clientStatus)
+	{
+		menu.generatePage(url.parse(req.url).query, function(page)
+		{
+			res.send(page);
+		});
+	}
+	else 
+	{
+		res.status(500).send('Something went wrong ! (E02)');	
+	}
+	
+});
+
+app.post('/final', function (req, res) 
+{
+
+	console.log('Final asked');
+
+	if(clientStatus)
+	{
+		console.log(req.body);
+		res.send('0');
+	}
+	else 
+	{
+		res.status(500).send('Something went wrong ! (E02)');	
+	}
+	
+});
+
+app.get('/final/booked', function (req, res) 
+{
+
+	console.log('Booked asked');
+
+	if(clientStatus)
+	{
+		res.send('passed');
+	}
+	else 
+	{
+		res.status(500).send('Something went wrong ! (E02)');	
+	}
+	
+});
+
+app.get('/final/failed', function (req, res) 
+{
+
+	console.log('Failed asked');
+
+	if(clientStatus)
+	{
+		res.send('failed');
+	}
+	else 
+	{
+		res.status(500).send('Something went wrong ! (E02)');	
+	}
+	
+});
+
+app.get('/maxOrdre', function (req, res) 
+{
+
+	console.log('MaxOrdre asked');
+
+	if(clientStatus)
+	{
+		var ordreCfg = cfg.readOrdreConfig();
+
+		res.send((Object.keys(ordreCfg).length-1).toString());
+	}
+	else 
+	{
+		res.status(500).send('Something went wrong ! (E02)');	
+	}
+	
+});
+
 //**********  Express routes end  **********//
 
 //**********  SocketIO  **********//
 
-io.on('connection', function(socket)
+io.on('connect', function(socket)
 {
-	
-});
+	socket.on('update', function()
+	{
+		client.write("rt=update;m=new_infos;");
+	});
 
-io.on('update', function(socket)
-{
-	client.write("rt=update;m=new_infos;");
+	socket.on('booking', function(message)
+	{
+		console.log(message);
+	});
+
+
 });
 
 function sendUpdate()

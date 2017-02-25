@@ -264,3 +264,4 @@ WebServer/web/public/css/
 WebServer/web/public/media/
 WebServer/web/public/js/socket.io.js
 WebServer/web/public/js/socket.io.min.js
+WebServer/web/public/js/jquery.history.js

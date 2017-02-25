@@ -1,9 +1,11 @@
 var socket = io();
 
-$('document').ready()
+$('document').ready(function()
 {
 	socket.emit('connect', "");
-}
+});
 
-socket.on('update', function(msg){
-    console.log(msg)});
+socket.on('update', function(msg)
+{
+    console.log(msg);
+});

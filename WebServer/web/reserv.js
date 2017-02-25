@@ -33,29 +33,45 @@
     {
         connection.query("select * from badges where code_id='"+parameters.split("&")[0].split("=")[1]+"';", function (error, results, fields) 
         {
-            if (error) return error;
+            if (error) return generateErrorPage();
 
             var page =  '<!DOCTYPE html>'+
-                        '<html>'+
-                            '<head>'+
-                                '<meta charset="utf8"/>'+
-                                '<title>SR2D</title>'+
-                                '<link rel="stylesheet" href="css/menu.css">'+
-                            '</head>'+
-
-                            '<script src="js/socket.io.js"></script>'+
-                            '<script src="http://code.jquery.com/jquery-1.11.1.js"></script>'+
-                            '<script src="js/socket.js"></script>'+
-                            '<body>'+
-                                '<article id="test">'+
-                                        '<span style="position: absolute; top: 100px; left: 360px;">'+
+                    '<html>'+
+                        '<head>'+
+                            '<meta charset="utf8"/>'+
+                            '<title>SR2D</title>'+
+                            '<link rel="stylesheet" href="css/menu.css">'+
+                        '</head>'+
+                        '<script src="js/socket.io.js"></script>'+
+                        '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
+                        '<script src="js/socket.js"></script>'+
+                        '<script src="js/jquery.history.js"></script>'+
+                        '<script src="js/main.js"></script>'+
+                        '<body>'+
+                            '<article id="test">'+
+                                    '<div id="ticket">'+
+                                        '<div class="foodListItem" id ="food-9">'+
+                                            '<p>9</p>'+
+                                        '</div>'+
+                                        '<div class="foodListItem" id ="food-10">'+
+                                            '<p>10</p>'+
+                                        '</div>'+
+                                        '<div class="foodListItem" id ="food-11">'+
+                                            '<p>11</p>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div id="chosingPanel">'+
+                                    '</div>'+
+                                    '<span style="position: absolute; top: 100px; left: 360px;">'+
                                         '<p>Bonjour '+results[0].first_name+' '+results[0].name+'</p>'+
-                                        '</span>'+
-                                '</article>'+ 
-                            '</body>'+
-                        '</html>';
+                                    '</span>'+
+                                    '<button id="btn">Valider</button>'+
+                            '</article>'+ 
+                        '</body>'+
+                    '</html>';
 
-                        callback(page);
+            callback(page);
+
         });
     }
 

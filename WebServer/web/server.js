@@ -6,8 +6,7 @@ var app = express();
 var path = require("path");
 var cfg = require("./configFile");
 var mysql = require('mysql');
-var reserv = require('./reserv.js');
-var menu = require('./menu.js');
+var generator = require('./pageGenerator.js');
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
 var net = require('net');
@@ -188,7 +187,7 @@ app.get('/reserv', function (req, res)
 
 	if(clientStatus)
 	{
-		reserv.generatePage(url.parse(req.url).query, function(page)
+		generator.generateReservPage(url.parse(req.url).query, function(page)
 		{
 			res.send(page);
 		});
@@ -200,14 +199,14 @@ app.get('/reserv', function (req, res)
 	
 });
 
-app.get('/menu', function (req, res) 
+app.post('/menu', function (req, res) 
 {
 
 	console.log('Menu asked');
 
 	if(clientStatus)
 	{
-		menu.generatePage(url.parse(req.url).query, function(page)
+		generator.generateMenuPage(url.parse(req.url).query, req.body, function(page)
 		{
 			res.send(page);
 		});
@@ -226,8 +225,14 @@ app.post('/final', function (req, res)
 
 	if(clientStatus)
 	{
-		console.log(req.body);
-		res.send('0');
+
+		console.log(req.body)
+
+		if(checkReservation(req.body))
+		{
+			book(req.body);
+			res.send('0');
+		}
 	}
 	else 
 	{
@@ -383,6 +388,91 @@ function sendUpdate()
 }
 
 //**********  SocketIO end  **********//
+
+function checkReservation(data)
+{
+	connection.query("select * from food;", function (error, results, fields) 
+    {
+        if (error) error;
+
+        connection.query("select * from excluded_food_types_join;", function (error2, results2, fields2) 
+        {
+            if (error) return error2;
+
+            var confirmedFood = [];
+
+            var foods = [];
+
+            for(af of data[0])
+	        {
+	            for(var i = 0, length1 = results3.length; i < length1; i++)
+	            {
+	                if(af == results3[i].id)
+	                {
+	                    types.push(results3[i].type_id);
+
+	                    break;
+	                }
+	            }
+	        }
+
+            for(f of foods)
+            {
+            	for(cf of confirmedFood)
+            	{
+            		if(cf.type_id == f.type_id)
+            		{
+            			return false;
+            		}
+            		else
+            		{
+            			var excludedTypes = [];
+
+            			for(var i = 0, length1 = results4.length; i < length1; i++)
+                        {
+                            if(results2[i].master_food_types == f.type_id)
+                            {
+                                var add = true;
+
+                                for(e of excludedTypes)
+                                {
+                                    if(e == results4[i].slave_food_types)
+                                    {
+                                        add = false;
+                                        break;
+                                    }
+                                }
+
+                                if(add)
+                                {
+                                    excludedTypes.push(results4[i].slave_food_types);
+                                }
+                            }
+                        }
+
+            			for(e of excludedTypes)
+            			{
+            				if(f.type_id == e)
+            				{
+            					return false;
+            				}
+            			}
+            		}
+            	}
+
+            	confirmedFood.push(f);
+            }
+
+            return true;
+        });
+    });
+
+}
+
+function book(data)
+{
+
+}
 
 http.listen(8080, function () {
 	console.log('Server running ...');

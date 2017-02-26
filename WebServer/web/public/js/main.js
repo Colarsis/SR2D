@@ -15,12 +15,9 @@ function getUrlParameter(sParam) {
     }
 };
 
-function book()
+function getTicket()
 {
-
-	//Ajouter une roue de chargement
-
-	var ticket = {};
+	var ticket = [];
 
 	var i = 0;
 
@@ -28,12 +25,24 @@ function book()
 	{
 		var id = $(this).attr('id').split('-')[1];
 
-		ticket[i] = id;
+		ticket.push(id);
 
 		i++;
 	});
 
-	$.post('final', ticket, function(data)
+	var realTicket = {};
+
+	realTicket[0] = ticket;
+
+	return realTicket;
+}
+
+function book()
+{
+
+	//Ajouter une roue de chargement
+
+	$.post('final', getTicket(), function(data)
 		{
 			if(data == 0)
 			{
@@ -56,7 +65,9 @@ $('document').ready(function()
 
 		}, 'text');
 
-	$('#chosingPanel').load('menu?code='+getUrlParameter('code')+'&ordre='+getUrlParameter('ordre'));
+	console.log(getTicket());
+
+	$('#chosingPanel').load('menu?code='+getUrlParameter('code')+'&ordre='+getUrlParameter('ordre'), getTicket());
 });
 
 $(function()
@@ -69,7 +80,7 @@ $(function()
 
 			$('#chosingPanel').empty();
 
-			$('#chosingPanel').load('menu?code='+getUrlParameter('code')+'&ordre='+getUrlParameter('ordre'));
+			$('#chosingPanel').load('menu?code='+getUrlParameter('code')+'&ordre='+getUrlParameter('ordre'), getTicket());
 		}
 		else
 		{

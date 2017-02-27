@@ -29,6 +29,122 @@
         }
     }
 
+    module.exports.generateFailedPage = function(parameters, callback) 
+    {
+        var error = parameters.split("&")[0].split("=")[1];
+
+        switch(error)
+        {
+            case '1':
+                var page =  '<!DOCTYPE html>'+
+                            '<html>'+
+                                '<head>'+
+                                    '<meta charset="utf8"/>'+
+                                    '<title>Erreur</title>'+
+                                    '<link rel="stylesheet" href="../css/menu.css">'+
+                                '</head>'+
+                                '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
+                                '<script src="../js/jquery.history.js"></script>'+
+                                '<script src="../js/reset.js"></script>'+
+                                '<body>'+
+                                    '<article id="test">'+
+                                        '<span style="position: absolute; top: 100px; left: 360px;">'+
+                                            '<p>Une réservation a déjà été éffectuée avec votre badge.</p>'+
+                                        '</span>'+
+                                        '<button id="btn">Retour</button>'+
+                                    '</article>'+ 
+                                '</body>'+
+                            '</html>';
+
+                callback(page);
+
+                break;
+            case '2':
+                var page =  '<!DOCTYPE html>'+
+                            '<html>'+
+                                '<head>'+
+                                    '<meta charset="utf8"/>'+
+                                    '<title>Erreur</title>'+
+                                    '<link rel="stylesheet" href="../css/menu.css">'+
+                                '</head>'+
+                                '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
+                                '<script src="../js/jquery.history.js"></script>'+
+                                '<script src="../js/reset.js"></script>'+
+                                '<body>'+
+                                    '<article id="test">'+
+                                        '<span style="position: absolute; top: 100px; left: 360px;">'+
+                                            '<p>Nous sommes désolés, mais les produits suivants ne sont plus disponibles, veuillez recommencer votre réservation.</p>'+
+                                            '<p></p>';
+                
+                var foods = parameters.split("&")[1].split("=")[1].split(',');
+
+                for(f of foods)
+                {
+                    page += ('<p>' + f + '</p>');
+                }
+
+                                    page += '</span>'+
+                                        '<button id="btn">Retour</button>'+
+                                    '</article>'+ 
+                                '</body>'+
+                            '</html>';
+
+                callback(page);
+                
+                break;
+            case '3':
+                var page =  '<!DOCTYPE html>'+
+                            '<html>'+
+                                '<head>'+
+                                    '<meta charset="utf8"/>'+
+                                    '<title>Erreur</title>'+
+                                    '<link rel="stylesheet" href="../css/menu.css">'+
+                                '</head>'+
+                                '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
+                                '<script src="../js/jquery.history.js"></script>'+
+                                '<script src="../js/reset.js"></script>'+
+                                '<body>'+
+                                    '<article id="test">'+
+                                        '<span style="position: absolute; top: 100px; left: 360px;">'+
+                                            '<p>Une erreur s\'est produite lors de la réservation. Veuillez réessayer.</p>'+
+                                            '<p>En cas de disfonctionnements répétés, veuillez contacter l\'administrateur.</p>'+
+                                        '</span>'+
+                                        '<button id="btn">Retour</button>'+
+                                    '</article>'+ 
+                                '</body>'+
+                            '</html>';
+
+                callback(page);
+
+                break;
+        }
+    }
+
+    module.exports.generateConfirmPage = function(parameters, callback) 
+    {
+        var page =  '<!DOCTYPE html>'+
+                            '<html>'+
+                                '<head>'+
+                                    '<meta charset="utf8"/>'+
+                                    '<title>Erreur</title>'+
+                                    '<link rel="stylesheet" href="../css/menu.css">'+
+                                '</head>'+
+                                '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
+                                '<script src="../js/jquery.history.js"></script>'+
+                                '<script src="../js/reset.js"></script>'+
+                                '<body>'+
+                                    '<article id="test">'+
+                                        '<span style="position: absolute; top: 100px; left: 360px;">'+
+                                            '<p>Votre réservation a bien été enregistrée. Bonne journée !</p>'+
+                                        '</span>'+
+                                        '<button id="btn">Retour</button>'+
+                                    '</article>'+ 
+                                '</body>'+
+                            '</html>';
+
+        callback(page);
+    }
+
     module.exports.generateReservPage = function(parameters, callback) 
     {
         connection.query("select * from badges where code_id='"+parameters.split("&")[0].split("=")[1]+"';", function (error, results, fields) 
@@ -52,12 +168,6 @@
                                     '<div id="ticket">'+
                                         '<div class="foodListItem" id ="food-11">'+
                                             '<p>9</p>'+
-                                        '</div>'+
-                                        '<div class="foodListItem" id ="food-12">'+
-                                            '<p>10</p>'+
-                                        '</div>'+
-                                        '<div class="foodListItem" id ="food-13">'+
-                                            '<p>11</p>'+
                                         '</div>'+
                                     '</div>'+
                                     '<div id="chosingPanel">'+
@@ -91,8 +201,6 @@
 
             var cont = false;
 
-            console.log('Data: '+data[0]);
-
             if(currentOrder != null)
             {
                 connection.query("select * from food_types;", function (error2, results2, fields2)
@@ -103,126 +211,143 @@
 
                         connection.query("select * from excluded_food_types_join;", function (error4, results4, fields4) 
                         {
-                            if (error2) return error2;
-                            if (error3) return error3;
-                            if (error4) return error4;
 
-                            var types = [];
-
-                            var excludedTypes = [];
-
-                            if(data[0] != undefined)
+                            connection.query("select * from booking;", function (error5, results5, fields5) 
                             {
-                                for(af of data[0])
+
+                                if (error2) return error2;
+                                if (error3) return error3;
+                                if (error4) return error4;
+
+                                var types = [];
+
+                                var excludedTypes = [];
+
+                                if(data[0] != undefined)
                                 {
-                                    for(var i = 0, length1 = results3.length; i < length1; i++)
+                                    for(af of data[0])
                                     {
-                                        if(af == results3[i].id)
+                                        for(var i = 0, length1 = results3.length; i < length1; i++)
                                         {
-                                            types.push(results3[i].type_id);
-
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        
-                            for(t of types)
-                            {
-                                for(var i = 0, length1 = results4.length; i < length1; i++)
-                                {
-                                    if(results4[i].master_food_types == t)
-                                    {
-                                        var add = true;
-
-                                        for(e of excludedTypes)
-                                        {
-                                            console.log('e: '+e+' vs tID: '+t);
-
-                                            if(e == results4[i].slave_food_types)
+                                            if(af == results3[i].id)
                                             {
-                                                add = false;
+                                                types.push(results3[i].type_id);
+
                                                 break;
                                             }
                                         }
-
-                                        if(add)
-                                        {
-                                            excludedTypes.push(results4[i].slave_food_types);
-                                        }
                                     }
                                 }
-                            }
-
-                            console.log('Excluded types: '+excludedTypes);
-
-                            for(cO in currentOrder.types)
-                            {
-                                for(var i = 0, length1 = results2.length; i < length1; i++)
+                            
+                                for(t of types)
                                 {
-                                    if(cO == results2[i].id)
+                                    for(var i = 0, length1 = results4.length; i < length1; i++)
                                     {
-                                        var include = true;
-
-                                        for(e of excludedTypes)
+                                        if(results4[i].master_food_types == t)
                                         {
-                                            console.log('e: '+e+' vs cO: '+cO);
-                                            if(e == cO)
+                                            var add = true;
+
+                                            for(e of excludedTypes)
                                             {
-                                                include = false;
-                                                break;
-                                            }
-                                        }
-
-                                        if(include)
-                                        {
-                                            var foodType = [results2[i].id, results2[i].name];
-
-                                            var food = [];
-
-                                            for(var i2 = 0, length3 = results3.length; i2 < length3; i2++)
-                                            {
-
-                                                if(results3[i2].type_id == results2[i].id)
+                                                if(e == results4[i].slave_food_types)
                                                 {
-                                                    food.push([results3[i2].id, results3[i2].name]);
+                                                    add = false;
+                                                    break;
                                                 }
                                             }
 
-                                            foodType.push(food);
+                                            if(add)
+                                            {
+                                                excludedTypes.push(results4[i].slave_food_types);
+                                            }
+                                        }
+                                    }
 
-                                            menu.push(foodType);
-                                        }                                    
+                                    excludedTypes.push(t);
+                                }
+
+                                var foodQuantity = {};
+
+                                for(var i = 0, length1 = results5.length; i < length1; i++)
+                                {
+                                    if(foodQuantity[results5[i].food_id] == undefined)
+                                    {
+                                        foodQuantity[results5[i].food_id] = 1;
+                                    }
+                                    else
+                                    {
+                                        foodQuantity[results5[i].food_id] = foodQuantity[results5[i].food_id] + 1;
                                     }
                                 }
 
-                            }
-
-                            console.log('Menu: '+menu);
-
-                            if(menu != [])
-                            {
-                                var page = '';
-
-                                for(m of menu)
+                                for(cO in currentOrder.types)
                                 {
-                                    page += ('<div class="foodType" id="fT-'+m[0]+' name='+m[1]+'"><div class="foodsContainer" >');
-                                    //style="visibility: hidden;"
-
-                                        for(f of m[2])
+                                    for(var i = 0, length1 = results2.length; i < length1; i++)
+                                    {
+                                        if(cO == results2[i].id)
                                         {
-                                            page += ('<div class="food" id="f-'+f[0]+'">'+f[1]+'</div>');
-                                        }
+                                            var include = true;
 
-                                    page += '</div></div>';
+                                            for(e of excludedTypes)
+                                            {
+                                                if(e == cO)
+                                                {
+                                                    include = false;
+                                                    break;
+                                                }
+                                            }
+
+                                            if(include)
+                                            {
+                                                var foodType = [results2[i].id, results2[i].name];
+
+                                                var food = [];
+
+                                                for(var i2 = 0, length3 = results3.length; i2 < length3; i2++)
+                                                {
+
+                                                    if(results3[i2].type_id == results2[i].id)
+                                                    {
+                                                        if(foodQuantity[results3[i2].id] < results3[i2].quantity || foodQuantity[results3[i2].id] == undefined)
+                                                        {
+                                                            food.push([results3[i2].id, results3[i2].name]);
+                                                        }
+                                                    }
+                                                }
+
+                                                foodType.push(food);
+
+                                                menu.push(foodType);
+                                            }                                    
+                                        }
+                                    }
+
                                 }
-                                     
-                                callback(page);
-                            }
-                            else
-                            {
-                                return generateErrorPage();
-                            }
+
+                                if(menu != [])
+                                {
+                                    var page = '';
+
+                                    for(m of menu)
+                                    {
+                                        page += ('<div class="foodType" id="fT-'+m[0]+' name='+m[1]+'"><div class="foodsContainer" >');
+                                        //style="visibility: hidden;"
+
+                                            for(f of m[2])
+                                            {
+                                                page += ('<div class="food" id="f-'+f[0]+'">'+f[1]+'</div>');
+                                            }
+
+                                        page += '</div></div>';
+                                    }
+                                         
+                                    callback(page);
+                                }
+                                else
+                                {
+                                    return generateErrorPage();
+                                }
+                            });
                         });
                     });
                 });            

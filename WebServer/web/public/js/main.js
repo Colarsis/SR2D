@@ -47,19 +47,22 @@ function book()
 	datas[0] = getUrlParameter('code');
 	datas[1] = getTicket();
 
-	console.log(datas);
-
 	$.post('final', datas, function(data)
 		{
-			console.log(data);
-
-			if(data[0] == 0)
+			switch(data[0])
 			{
-				window.location.href = "final/booked";
-			}
-			else
-			{
-				window.location.href = "final/failed";
+				case '0':
+					window.location.href = "final/booked";
+					break; 
+				case '1':
+					window.location.href = "final/failed?e=1";
+					break;
+				case '2':
+					window.location.href = "final/failed?e=2&d="+data[1];
+					break;
+				case '3':
+					window.location.href = "final/failed?e=3";
+					break;
 			}
 		});
 

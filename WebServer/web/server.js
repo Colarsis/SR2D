@@ -187,8 +187,6 @@ app.get('/', function (req, res)
 app.get('/reserv', function (req, res) 
 {
 
-	console.log('Reserv asked');
-
 	if(clientStatus)
 	{
 		generator.generateReservPage(url.parse(req.url).query, function(page)
@@ -205,8 +203,6 @@ app.get('/reserv', function (req, res)
 
 app.post('/menu', function (req, res) 
 {
-
-	console.log('Menu asked');
 
 	if(clientStatus)
 	{
@@ -225,20 +221,13 @@ app.post('/menu', function (req, res)
 app.post('/final', function (req, res) 
 {
 
-	console.log('Final asked');
-
 	if(clientStatus)
 	{
-
-		console.log(req.body);
 
 		checkReservation(req.body, function(result)
 		{
 			if(result)
 			{
-
-				console.log('Result positive');
-
 				var datas = [req.body, 
 							 function(data)
 							 {	
@@ -247,8 +236,6 @@ app.post('/final', function (req, res)
 							];
 
 				bookingQueue.push(datas);
-
-				console.log(datas);
 
 				if(!processingQueue)
 				{
@@ -259,8 +246,7 @@ app.post('/final', function (req, res)
 			}
 			else
 			{
-				console.log('seding a 1');
-				res.send('1');
+				res.send(['1', []]);
 			}
 		});
 	}
@@ -274,11 +260,12 @@ app.post('/final', function (req, res)
 app.get('/final/booked', function (req, res) 
 {
 
-	console.log('Booked asked');
-
 	if(clientStatus)
 	{
-		res.send('passed');
+		generator.generateConfirmPage(url.parse(req.url).query, function(page)
+		{
+			res.send(page);
+		});
 	}
 	else 
 	{
@@ -290,11 +277,12 @@ app.get('/final/booked', function (req, res)
 app.get('/final/failed', function (req, res) 
 {
 
-	console.log('Failed asked');
-
 	if(clientStatus)
 	{
-		res.send('failed');
+		generator.generateFailedPage(url.parse(req.url).query, function(page)
+		{
+			res.send(page);
+		});
 	}
 	else 
 	{
@@ -305,8 +293,6 @@ app.get('/final/failed', function (req, res)
 
 app.get('/maxOrdre', function (req, res) 
 {
-
-	console.log('MaxOrdre asked');
 
 	if(clientStatus)
 	{
@@ -331,13 +317,6 @@ io.on('connect', function(socket)
 	{
 		client.write("rt=update;m=new_infos;");
 	});
-
-	socket.on('booking', function(message)
-	{
-		console.log(message);
-	});
-
-
 });
 
 function sendUpdate()
@@ -433,7 +412,7 @@ function checkReservation(data, callback)
 
             var foods = [];
 
-            if(data[1][0] == undefined){ console.log('Data undefined'); callback(false); }
+            if(data[1][0] == undefined){ callback(false); }
 
             for(af of data[1][0])
 	        {
@@ -454,8 +433,8 @@ function checkReservation(data, callback)
             	{
             		if(cf.type_id == f.type_id)
             		{
-            			console.log('Same type id ('+f.type_id+')');
             			callback(false);
+            			return;
             		}
             		else
             		{
@@ -487,9 +466,8 @@ function checkReservation(data, callback)
             			{
             				if(f.type_id == e)
             				{
-            					console.log('Type excluded ('+f.type_id+')');
-
             					callback(false);
+            					return;
             				}
             			}
             		}
@@ -499,6 +477,7 @@ function checkReservation(data, callback)
             }
 
             callback(true);
+            return;
         });
     });
 
@@ -506,9 +485,6 @@ function checkReservation(data, callback)
 
 function book(data, callback)
 {
-	console.log('Process data: '+data);
-
-	console.log('Cdoe: '+data[0][0]);
 
 	connection.query("select * from badges where code_id="+data[0][0]+";", function (error, results, fields) 
     {
@@ -518,7 +494,7 @@ function book(data, callback)
 
     	if(error)
     	{
-    		console.log(error);
+    		console.log('Erreur lors de la réservation: '+error);
     		motif[0] = '3';
 			data[1](motif);
 			callback();
@@ -527,6 +503,7 @@ function book(data, callback)
 
     	if(results[0].passed != 0)
     	{
+    		console.log('Motif: 1');
     		motif[0] = '1';
     		data[1](motif);
     		callback();
@@ -540,8 +517,7 @@ function book(data, callback)
         		{
         			if(error2 || error3)
 			    	{
-			    		console.log(error2);
-			    		console.log(error3);
+			    		console.log('Erreur lors de la réservation: '+error2+' '+error3);
 			    		motif[0] = '3';
 						data[1](motif);
 						callback();
@@ -554,15 +530,13 @@ function book(data, callback)
 	        		{
 	        			if(foodQuantity[results2[i].food_id] == undefined)
 	        			{
-	        				foodQuantity[results2[i].food_id] == 1;
+	        				foodQuantity[results2[i].food_id] = 1;
 	        			}
 	        			else
 	        			{
-	        				foodQuantity[results2[i].food_id] == foodQuantity[results2[i].food_id] + 1;
+	        				foodQuantity[results2[i].food_id] = foodQuantity[results2[i].food_id] + 1;
 	        			}
 	        		}
-
-	        		console.log(foodQuantity);
 
 	        		for(f of data[0][1][0])
 	        		{
@@ -572,13 +546,9 @@ function book(data, callback)
 	        				{
 	        					if(foodQuantity[f] >= results3[i].quantity)
 	        					{
-	        						console.log(f);
 	        						reserv = false;
 	        						motif[0] = '2';
-	        						motif[1].push([results3.name]);
-	        						data[1](motif);
-	        						callback();
-	        						return;
+	        						motif[1].push(results3[i].name);
 	        					}
 	        					else
 	        					{
@@ -586,6 +556,13 @@ function book(data, callback)
 	        					}
 	        				}
 	        			}
+	        		}
+
+	        		if(motif[0] == '2')
+	        		{
+	        			data[1](motif);
+	        			callback();
+	        			return;
 	        		}
 
 	        		var query = "";
@@ -597,13 +574,11 @@ function book(data, callback)
 
 	        		query += "update badges set passed=1 where id="+results[0].id+";";
 
-	        		console.log(query);
-
 	        		connection.query(query, function (error4, results4, fields4)
 	        		{
 	        			if(error4)
 	        			{
-	        				console.log(error4);
+	        				console.log('Erreur lors de la réservation: '+error4);
 	        				motif[0] = '3';
 	        				data[1](motif);
 	        				callback();
@@ -626,9 +601,6 @@ function book(data, callback)
 function processQueue()
 {
 	processingQueue = true;
-
-
-	console.log('Processing queue');
 
 	while(bookingQueue.length > 0)
 	{

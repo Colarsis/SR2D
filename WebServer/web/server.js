@@ -24,6 +24,9 @@ var clientStatus = false;
 var coCfg = cfg.readDatabaseConfig();
 var nu5 = ["", "", "", "", ""];
 
+var bookingQueue = [];
+var processingQueue = false;
+
 if(coCfg != nu5)
 {
 
@@ -32,7 +35,8 @@ if(coCfg != nu5)
 		user     : coCfg[1],
 		password : coCfg[2],
 		database : coCfg[0],
-		port     : coCfg[3]
+		port     : coCfg[3],
+		multipleStatements: true
 	});
 
 	connection.connect();
@@ -226,13 +230,39 @@ app.post('/final', function (req, res)
 	if(clientStatus)
 	{
 
-		console.log(req.body)
+		console.log(req.body);
 
-		if(checkReservation(req.body))
+		checkReservation(req.body, function(result)
 		{
-			book(req.body);
-			res.send('0');
-		}
+			if(result)
+			{
+
+				console.log('Result positive');
+
+				var datas = [req.body, 
+							 function(data)
+							 {	
+							 	res.send(data);
+							 }
+							];
+
+				bookingQueue.push(datas);
+
+				console.log(datas);
+
+				if(!processingQueue)
+				{
+					processingQueue = true;
+
+					processQueue();
+				}
+			}
+			else
+			{
+				console.log('seding a 1');
+				res.send('1');
+			}
+		});
 	}
 	else 
 	{
@@ -389,7 +419,7 @@ function sendUpdate()
 
 //**********  SocketIO end  **********//
 
-function checkReservation(data)
+function checkReservation(data, callback)
 {
 	connection.query("select * from food;", function (error, results, fields) 
     {
@@ -403,13 +433,15 @@ function checkReservation(data)
 
             var foods = [];
 
-            for(af of data[0])
+            if(data[1][0] == undefined){ console.log('Data undefined'); callback(false); }
+
+            for(af of data[1][0])
 	        {
-	            for(var i = 0, length1 = results3.length; i < length1; i++)
+	            for(var i = 0, length1 = results.length; i < length1; i++)
 	            {
-	                if(af == results3[i].id)
+	                if(af == results[i].id)
 	                {
-	                    types.push(results3[i].type_id);
+	                    foods.push(results[i]);
 
 	                    break;
 	                }
@@ -422,13 +454,14 @@ function checkReservation(data)
             	{
             		if(cf.type_id == f.type_id)
             		{
-            			return false;
+            			console.log('Same type id ('+f.type_id+')');
+            			callback(false);
             		}
             		else
             		{
             			var excludedTypes = [];
 
-            			for(var i = 0, length1 = results4.length; i < length1; i++)
+            			for(var i = 0, length1 = results2.length; i < length1; i++)
                         {
                             if(results2[i].master_food_types == f.type_id)
                             {
@@ -436,7 +469,7 @@ function checkReservation(data)
 
                                 for(e of excludedTypes)
                                 {
-                                    if(e == results4[i].slave_food_types)
+                                    if(e == results2[i].slave_food_types)
                                     {
                                         add = false;
                                         break;
@@ -445,7 +478,7 @@ function checkReservation(data)
 
                                 if(add)
                                 {
-                                    excludedTypes.push(results4[i].slave_food_types);
+                                    excludedTypes.push(results2[i].slave_food_types);
                                 }
                             }
                         }
@@ -454,7 +487,9 @@ function checkReservation(data)
             			{
             				if(f.type_id == e)
             				{
-            					return false;
+            					console.log('Type excluded ('+f.type_id+')');
+
+            					callback(false);
             				}
             			}
             		}
@@ -463,15 +498,144 @@ function checkReservation(data)
             	confirmedFood.push(f);
             }
 
-            return true;
+            callback(true);
         });
     });
 
 }
 
-function book(data)
+function book(data, callback)
 {
+	console.log('Process data: '+data);
 
+	console.log('Cdoe: '+data[0][0]);
+
+	connection.query("select * from badges where code_id="+data[0][0]+";", function (error, results, fields) 
+    {
+
+    	var reserv = true;
+    	var motif = ['', []];
+
+    	if(error)
+    	{
+    		console.log(error);
+    		motif[0] = '3';
+			data[1](motif);
+			callback();
+			return;
+    	}
+
+    	if(results[0].passed != 0)
+    	{
+    		motif[0] = '1';
+    		data[1](motif);
+    		callback();
+    		return;
+    	}
+    	else
+    	{
+    		connection.query("select * from booking;", function (error2, results2, fields2) 
+        	{
+        		connection.query("select * from food;", function (error3, results3, fields3) 
+        		{
+        			if(error2 || error3)
+			    	{
+			    		console.log(error2);
+			    		console.log(error3);
+			    		motif[0] = '3';
+						data[1](motif);
+						callback();
+						return;
+			    	}
+
+	        		var foodQuantity = {};
+
+	        		for(var i = 0, length1 = results2.length; i < length1; i++)
+	        		{
+	        			if(foodQuantity[results2[i].food_id] == undefined)
+	        			{
+	        				foodQuantity[results2[i].food_id] == 1;
+	        			}
+	        			else
+	        			{
+	        				foodQuantity[results2[i].food_id] == foodQuantity[results2[i].food_id] + 1;
+	        			}
+	        		}
+
+	        		console.log(foodQuantity);
+
+	        		for(f of data[0][1][0])
+	        		{
+	        			for(var i = 0, length1 = results2.length; i < length1; i++)
+	        			{
+	        				if(results3[i].id == f)
+	        				{
+	        					if(foodQuantity[f] >= results3[i].quantity)
+	        					{
+	        						console.log(f);
+	        						reserv = false;
+	        						motif[0] = '2';
+	        						motif[1].push([results3.name]);
+	        						data[1](motif);
+	        						callback();
+	        						return;
+	        					}
+	        					else
+	        					{
+	        						break;
+	        					}
+	        				}
+	        			}
+	        		}
+
+	        		var query = "";
+
+	        		for(f of data[0][1][0])
+	        		{
+	        			query += "insert into booking (badge_id, food_id) values("+results[0].id+", "+f+");";
+	        		}
+
+	        		query += "update badges set passed=1 where id="+results[0].id+";";
+
+	        		console.log(query);
+
+	        		connection.query(query, function (error4, results4, fields4)
+	        		{
+	        			if(error4)
+	        			{
+	        				console.log(error4);
+	        				motif[0] = '3';
+	        				data[1](motif);
+	        				callback();
+	        				return;
+	        			}
+	        			else
+	        			{
+	        				motif[0] = '0';
+	        				data[1](motif);
+	        				callback();
+	        				return;
+	        			}
+	        		});
+	        	});
+        	});
+    	}
+    });
+}
+
+function processQueue()
+{
+	processingQueue = true;
+
+
+	console.log('Processing queue');
+
+	while(bookingQueue.length > 0)
+	{
+		book(bookingQueue.shift(), function(){});
+	}
+
+	processingQueue = false;
 }
 
 http.listen(8080, function () {

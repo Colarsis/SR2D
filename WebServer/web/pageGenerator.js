@@ -111,19 +111,22 @@
 
                             var excludedTypes = [];
 
-                            for(af of data[0])
+                            if(data[0] != undefined)
                             {
-                                for(var i = 0, length1 = results3.length; i < length1; i++)
+                                for(af of data[0])
                                 {
-                                    if(af == results3[i].id)
+                                    for(var i = 0, length1 = results3.length; i < length1; i++)
                                     {
-                                        types.push(results3[i].type_id);
+                                        if(af == results3[i].id)
+                                        {
+                                            types.push(results3[i].type_id);
 
-                                        break;
+                                            break;
+                                        }
                                     }
                                 }
                             }
-
+                        
                             for(t of types)
                             {
                                 for(var i = 0, length1 = results4.length; i < length1; i++)
@@ -203,7 +206,8 @@
 
                                 for(m of menu)
                                 {
-                                    page += ('<div class="foodType" id="fT-'+m[0]+' name='+m[1]+'"><div class="foodsContainer" style="visibility: hidden;">');
+                                    page += ('<div class="foodType" id="fT-'+m[0]+' name='+m[1]+'"><div class="foodsContainer" >');
+                                    //style="visibility: hidden;"
 
                                         for(f of m[2])
                                         {

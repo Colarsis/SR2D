@@ -42,9 +42,18 @@ function book()
 
 	//Ajouter une roue de chargement
 
-	$.post('final', getTicket(), function(data)
+	var datas = {};
+
+	datas[0] = getUrlParameter('code');
+	datas[1] = getTicket();
+
+	console.log(datas);
+
+	$.post('final', datas, function(data)
 		{
-			if(data == 0)
+			console.log(data);
+
+			if(data[0] == 0)
 			{
 				window.location.href = "final/booked";
 			}
@@ -65,8 +74,6 @@ $('document').ready(function()
 
 		}, 'text');
 
-	console.log(getTicket());
-
 	$('#chosingPanel').load('menu?code='+getUrlParameter('code')+'&ordre='+getUrlParameter('ordre'), getTicket());
 });
 
@@ -86,5 +93,9 @@ $(function()
 		{
 			book();
 		}
+	});
+
+	$(window).bind('statechange',function(){
+		$('#chosingPanel').load('menu?code='+getUrlParameter('code')+'&ordre='+getUrlParameter('ordre'), getTicket());
 	});
 });

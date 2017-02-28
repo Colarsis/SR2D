@@ -19,4 +19,4 @@ SR2D (système de réservation et de distribution à distance / remote booking a
 
 ## License
 
-See the [LICENSE.md](LICENSE.md) file for details
+See the [LICENSE](LICENSE) file for details

@@ -126,7 +126,7 @@
                             '<html>'+
                                 '<head>'+
                                     '<meta charset="utf8"/>'+
-                                    '<title>Erreur</title>'+
+                                    '<title>Succès</title>'+
                                     '<link rel="stylesheet" href="../css/menu.css">'+
                                 '</head>'+
                                 '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
@@ -145,44 +145,100 @@
         callback(page);
     }
 
-    module.exports.generateReservPage = function(parameters, callback) 
+    module.exports.generateReservPage = function(parameters, service, callback) 
     {
-        connection.query("select * from badges where code_id='"+parameters.split("&")[0].split("=")[1]+"';", function (error, results, fields) 
+        if(parameters.split("&")[1].split("=")[1] == '0')
         {
-            if (error) return generateErrorPage();
+            if(service)
+            {
+                connection.query("select * from badges where code_id='"+parameters.split("&")[0].split("=")[1]+"';", function (error, results, fields) 
+                {
+                    if (error) return generateErrorPage();
 
+                    if(results[0] != undefined)
+                    {
+                        var page =  '<!DOCTYPE html>'+
+                                    '<html>'+
+                                        '<head>'+
+                                            '<meta charset="utf8"/>'+
+                                            '<title>SR2D</title>'+
+                                            '<link rel="stylesheet" href="css/menu.css">'+
+                                        '</head>'+
+                                        '<script src="js/socket.io.js"></script>'+
+                                        '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
+                                        '<script src="js/socket.js"></script>'+
+                                        '<script src="js/jquery.history.js"></script>'+
+                                        '<script src="js/main.js"></script>'+
+                                        '<body>'+
+                                            '<article id="test">'+
+                                                    '<div id="ticket">'+
+                                                        '<div class="foodListItem" id ="food-11">'+
+                                                            '<p>9</p>'+
+                                                        '</div>'+
+                                                    '</div>'+
+                                                    '<div id="chosingPanel">'+
+                                                    '</div>'+
+                                                    '<span style="position: absolute; top: 100px; left: 360px;">'+
+                                                        '<p>Bonjour '+results[0].first_name+' '+results[0].name+'</p>'+
+                                                    '</span>'+
+                                                    '<button id="btn">Valider</button>'+
+                                            '</article>'+ 
+                                        '</body>'+
+                                    '</html>';
+
+                        callback(page);
+                    }
+                });
+            }
+            else
+            {
+                var page =  '<!DOCTYPE html>'+
+                                '<html>'+
+                                    '<head>'+
+                                        '<meta charset="utf8"/>'+
+                                        '<title>Erreur</title>'+
+                                        '<link rel="stylesheet" href="../css/menu.css">'+
+                                    '</head>'+
+                                    '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
+                                    '<script src="../js/jquery.history.js"></script>'+
+                                    '<script src="../js/reset.js"></script>'+
+                                    '<body>'+
+                                        '<article id="test">'+
+                                            '<span style="position: absolute; top: 100px; left: 360px;">'+
+                                                '<p>Les réservations ne sont pas ouvertes pour le moment.</p>'+
+                                            '</span>'+
+                                            '<button id="btn">Retour</button>'+
+                                        '</article>'+ 
+                                    '</body>'+
+                                '</html>';
+
+                    callback(page);
+            }
+        }
+        else
+        {
             var page =  '<!DOCTYPE html>'+
-                    '<html>'+
-                        '<head>'+
-                            '<meta charset="utf8"/>'+
-                            '<title>SR2D</title>'+
-                            '<link rel="stylesheet" href="css/menu.css">'+
-                        '</head>'+
-                        '<script src="js/socket.io.js"></script>'+
-                        '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
-                        '<script src="js/socket.js"></script>'+
-                        '<script src="js/jquery.history.js"></script>'+
-                        '<script src="js/main.js"></script>'+
-                        '<body>'+
-                            '<article id="test">'+
-                                    '<div id="ticket">'+
-                                        '<div class="foodListItem" id ="food-11">'+
-                                            '<p>9</p>'+
-                                        '</div>'+
-                                    '</div>'+
-                                    '<div id="chosingPanel">'+
-                                    '</div>'+
+                        '<html>'+
+                            '<head>'+
+                                '<meta charset="utf8"/>'+
+                                '<title>Erreur</title>'+
+                                '<link rel="stylesheet" href="../css/menu.css">'+
+                            '</head>'+
+                            '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
+                            '<script src="../js/jquery.history.js"></script>'+
+                            '<script src="../js/reset.js"></script>'+
+                            '<body>'+
+                                '<article id="test">'+
                                     '<span style="position: absolute; top: 100px; left: 360px;">'+
-                                        '<p>Bonjour '+results[0].first_name+' '+results[0].name+'</p>'+
+                                        '<p>Ce code n\'est pas attribué !</p>'+
                                     '</span>'+
-                                    '<button id="btn">Valider</button>'+
-                            '</article>'+ 
-                        '</body>'+
-                    '</html>';
+                                    '<button id="btn">Retour</button>'+
+                                '</article>'+ 
+                            '</body>'+
+                        '</html>';
 
             callback(page);
-
-        });
+        }       
     }
 
     module.exports.generateMenuPage = function(parameters, data, callback) 

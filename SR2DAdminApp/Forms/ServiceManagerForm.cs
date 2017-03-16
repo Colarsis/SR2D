@@ -174,6 +174,8 @@ namespace SR2DAdminApp.Forms
                     objectListView1.Visible = false;
                     cartesianChart1.Visible = false;
                     cartesianChart2.Visible = false;
+                    label1.Visible = false;
+                    label2.Visible = false;
                     label3.Visible = true;
                     label4.Visible = true;
                     label5.Visible = true;
@@ -185,6 +187,8 @@ namespace SR2DAdminApp.Forms
                     objectListView1.Visible = true;
                     cartesianChart1.Visible = false;
                     cartesianChart2.Visible = false;
+                    label1.Visible = false;
+                    label2.Visible = false;
                     label3.Visible = true;
                     label4.Visible = true;
                     label5.Visible = false;
@@ -196,6 +200,8 @@ namespace SR2DAdminApp.Forms
                     objectListView1.Visible = false;
                     cartesianChart1.Visible = true;
                     cartesianChart2.Visible = true;
+                    label1.Visible = true;
+                    label2.Visible = true;
                     label3.Visible = false;
                     label4.Visible = true;
                     label5.Visible = true;
@@ -207,6 +213,8 @@ namespace SR2DAdminApp.Forms
                     objectListView1.Visible = false;
                     cartesianChart1.Visible = true;
                     cartesianChart2.Visible = true;
+                    label1.Visible = true;
+                    label2.Visible = true;
                     label3.Visible = false;
                     label4.Visible = false;
                     label5.Visible = true;
@@ -218,6 +226,8 @@ namespace SR2DAdminApp.Forms
                     objectListView1.Visible = false;
                     cartesianChart1.Visible = true;
                     cartesianChart2.Visible = true;
+                    label1.Visible = true;
+                    label2.Visible = true;
                     label3.Visible = false;
                     label4.Visible = false;
                     label5.Visible = true;
@@ -229,6 +239,8 @@ namespace SR2DAdminApp.Forms
                     objectListView1.Visible = false;
                     cartesianChart1.Visible = true;
                     cartesianChart2.Visible = true;
+                    label1.Visible = true;
+                    label2.Visible = true;
                     label3.Visible = false;
                     label4.Visible = false;
                     label5.Visible = true;
@@ -246,7 +258,11 @@ namespace SR2DAdminApp.Forms
                 if (currentStatus != ServiceStates.Stopped)
                 {
                     thisCallback c = new thisCallback(guiUpdate);
+                    thisCallback c2 = new thisCallback(populateDispList);
+                    thisCallback c3 = new thisCallback(updatePrep);
                     Invoke(c);
+                    Invoke(c2);
+                    Invoke(c3);
                 }         
             }
             else
@@ -257,7 +273,25 @@ namespace SR2DAdminApp.Forms
                 if(currentStatus != ServiceStates.Stopped)
                 {
                     guiUpdate();
+                    populateDispList();
                 }      
+            }
+        }
+
+        public void updatePrep()
+        {
+            if(currentStatus == ServiceStates.Ended || currentStatus == ServiceStates.Distribution || currentStatus == ServiceStates.Concoction)
+            {
+                objectListView2.Items.Clear();
+
+                List<Booking> bookings = new List<Booking>();
+
+                foreach (DataRow booking in db.Ds.Dataset.Tables["booking"].Rows)
+                {
+                    bookings.Add(new Booking(int.Parse(booking.ItemArray[0].ToString()), booking.ItemArray[1].ToString(), booking.ItemArray[2].ToString()));
+                }
+
+
             }
         }
 
@@ -311,7 +345,6 @@ namespace SR2DAdminApp.Forms
 
         public void serviceModeChangeAction(int state)
         { 
-
             switch(state)
             {
                 case 0:
@@ -520,6 +553,27 @@ namespace SR2DAdminApp.Forms
             }
 
             serviceModeChangeAction(state);
+        }
+
+        private void ServiceManagerForm_Resize(object sender, EventArgs e)
+        {
+            tabControl1.Size = new Size(this.Size.Width - 40, this.Size.Height - 149);
+            actionButton.Size = new Size(this.Size.Width - 40, 65);
+            objectListView1.Size = new Size(tabControl1.Size.Width - 20, tabControl1.Size.Height - 38);
+            cartesianChart1.Size = new Size(tabControl1.Size.Width - 20, (tabControl1.Size.Height) / 2 - 52);
+            cartesianChart2.Size = cartesianChart1.Size;
+            cartesianChart2.Top = cartesianChart1.Height + 73;
+            label2.Top = cartesianChart1.Height + 57;
+
+            label3.Top = tabControl1.Height / 2 - 15;
+            label3.Left = tabControl1.Width / 2 - 201;
+            label4.Top = tabControl1.Height / 2 - 15;
+            label4.Left = tabControl1.Width / 2 - 201;
+            label5.Top = tabControl1.Height / 2 - 15;
+            label5.Left = tabControl1.Width / 2 - 201;
+
+            prepButton.Size = new Size(tabControl1.Size.Width - 8, prepButton.Height);
+            objectListView2.Size = new Size(tabControl1.Size.Width - 8, tabControl1.Size.Height - 64);
         }
 
     }

@@ -211,8 +211,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Booking.cs" />
     <Compile Include="Utilities\Food.cs" />
     <Compile Include="Utilities\MeasureModel.cs" />
+    <Compile Include="Utilities\PrepItem.cs" />
     <Compile Include="Utilities\ServiceStates.cs" />
     <Compile Include="Utilities\SR2DClassBound.cs" />
     <Compile Include="Utilities\SR2DURLs.cs" />

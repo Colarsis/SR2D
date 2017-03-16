@@ -45,23 +45,33 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.prepButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.objectListView2 = new BrightIdeasSoftware.ObjectListView();
+            this.olvColumn1 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColumn2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColumn7 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColumn3 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColumn4 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColumn5 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColumn6 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.objectListView2)).BeginInit();
             this.SuspendLayout();
             // 
             // actionButton
             // 
+            this.actionButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.actionButton.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.actionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.actionButton.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.actionButton.Location = new System.Drawing.Point(12, 584);
             this.actionButton.Name = "actionButton";
-            this.actionButton.Size = new System.Drawing.Size(556, 65);
+            this.actionButton.Size = new System.Drawing.Size(560, 65);
             this.actionButton.TabIndex = 0;
             this.actionButton.Text = "TERMINER LE SERVICE";
             this.actionButton.UseVisualStyleBackColor = false;
@@ -100,6 +110,9 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(75, 248);
@@ -186,6 +199,9 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(82, 264);
@@ -231,8 +247,9 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.prepButton);
             this.tabPage3.Controls.Add(this.label4);
-            this.tabPage3.Controls.Add(this.flowLayoutPanel1);
+            this.tabPage3.Controls.Add(this.objectListView2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -240,6 +257,16 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Préparation";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // prepButton
+            // 
+            this.prepButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.prepButton.Location = new System.Drawing.Point(0, 496);
+            this.prepButton.Name = "prepButton";
+            this.prepButton.Size = new System.Drawing.Size(552, 23);
+            this.prepButton.TabIndex = 2;
+            this.prepButton.Text = "Valider un préparation";
+            this.prepButton.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -252,25 +279,111 @@
             this.label4.Text = "Service non disponible actuellement";
             this.label4.Visible = false;
             // 
-            // flowLayoutPanel1
+            // objectListView2
             // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 6);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(540, 513);
-            this.flowLayoutPanel1.TabIndex = 6;
+            this.objectListView2.AllColumns.Add(this.olvColumn1);
+            this.objectListView2.AllColumns.Add(this.olvColumn2);
+            this.objectListView2.AllColumns.Add(this.olvColumn7);
+            this.objectListView2.AllColumns.Add(this.olvColumn3);
+            this.objectListView2.AllColumns.Add(this.olvColumn4);
+            this.objectListView2.AllColumns.Add(this.olvColumn5);
+            this.objectListView2.AllColumns.Add(this.olvColumn6);
+            this.objectListView2.CellEditUseWholeCell = false;
+            this.objectListView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.olvColumn1,
+            this.olvColumn2,
+            this.olvColumn7,
+            this.olvColumn3,
+            this.olvColumn4,
+            this.olvColumn5,
+            this.olvColumn6});
+            this.objectListView2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.objectListView2.FullRowSelect = true;
+            this.objectListView2.GridLines = true;
+            this.objectListView2.Location = new System.Drawing.Point(0, 3);
+            this.objectListView2.MultiSelect = false;
+            this.objectListView2.Name = "objectListView2";
+            this.objectListView2.Size = new System.Drawing.Size(552, 487);
+            this.objectListView2.TabIndex = 3;
+            this.objectListView2.UseCompatibleStateImageBehavior = false;
+            this.objectListView2.View = System.Windows.Forms.View.Details;
+            // 
+            // olvColumn1
+            // 
+            this.olvColumn1.AspectName = "id";
+            this.olvColumn1.Groupable = false;
+            this.olvColumn1.IsEditable = false;
+            this.olvColumn1.IsVisible = false;
+            this.olvColumn1.MaximumWidth = 0;
+            this.olvColumn1.MinimumWidth = 0;
+            this.olvColumn1.Searchable = false;
+            this.olvColumn1.Text = "id";
+            this.olvColumn1.Width = 0;
+            // 
+            // olvColumn2
+            // 
+            this.olvColumn2.AspectName = "Name";
+            this.olvColumn2.FillsFreeSpace = true;
+            this.olvColumn2.Groupable = false;
+            this.olvColumn2.IsEditable = false;
+            this.olvColumn2.Text = "Produit";
+            // 
+            // olvColumn7
+            // 
+            this.olvColumn7.AspectName = "student";
+            this.olvColumn7.FillsFreeSpace = true;
+            this.olvColumn7.Groupable = false;
+            this.olvColumn7.IsEditable = false;
+            this.olvColumn7.Text = "Eleve";
+            // 
+            // olvColumn3
+            // 
+            this.olvColumn3.AspectName = "type";
+            this.olvColumn3.IsEditable = false;
+            this.olvColumn3.MaximumWidth = 0;
+            this.olvColumn3.MinimumWidth = 0;
+            this.olvColumn3.Text = "type";
+            this.olvColumn3.Width = 0;
+            // 
+            // olvColumn4
+            // 
+            this.olvColumn4.AspectName = "quantity";
+            this.olvColumn4.CellEditUseWholeCell = true;
+            this.olvColumn4.FillsFreeSpace = true;
+            this.olvColumn4.Groupable = false;
+            this.olvColumn4.IsEditable = false;
+            this.olvColumn4.Text = "Quantité";
+            // 
+            // olvColumn5
+            // 
+            this.olvColumn5.AspectName = "state";
+            this.olvColumn5.FillsFreeSpace = true;
+            this.olvColumn5.Groupable = false;
+            this.olvColumn5.IsEditable = false;
+            this.olvColumn5.Text = "Etat";
+            // 
+            // olvColumn6
+            // 
+            this.olvColumn6.AspectName = "supplement";
+            this.olvColumn6.FillsFreeSpace = true;
+            this.olvColumn6.Groupable = false;
+            this.olvColumn6.IsEditable = false;
+            this.olvColumn6.Text = "Reste";
             // 
             // ServiceManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 661);
+            this.ClientSize = new System.Drawing.Size(584, 662);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.actionButton);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(600, 700);
             this.Name = "ServiceManagerForm";
             this.Text = "ServiceManagerForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ServiceManagerForm_FormClosed);
+            this.Resize += new System.EventHandler(this.ServiceManagerForm_Resize);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -279,6 +392,7 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.objectListView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -304,6 +418,14 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private BrightIdeasSoftware.ObjectListView objectListView2;
+        private BrightIdeasSoftware.OLVColumn olvColumn1;
+        private BrightIdeasSoftware.OLVColumn olvColumn2;
+        private BrightIdeasSoftware.OLVColumn olvColumn7;
+        private BrightIdeasSoftware.OLVColumn olvColumn3;
+        private BrightIdeasSoftware.OLVColumn olvColumn4;
+        private BrightIdeasSoftware.OLVColumn olvColumn5;
+        private BrightIdeasSoftware.OLVColumn olvColumn6;
+        private System.Windows.Forms.Button prepButton;
     }
 }

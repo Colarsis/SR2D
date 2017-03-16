@@ -21,6 +21,8 @@ app.use(bodyP.urlencoded(
 
 var clientStatus = false;
 
+var bookingOpen = false;
+
 var coCfg = cfg.readDatabaseConfig();
 var nu5 = ["", "", "", "", ""];
 
@@ -79,6 +81,7 @@ client.on('data', function(data)
 		switch (realData[0].split('=')[1]) 
 		{
 			case "update":
+				setServiceState();
 				sendUpdate();
 				client.write("at=update;m=updated;");
 				break;
@@ -123,6 +126,21 @@ client.on('close', function(er)
 	clientStatus = false;
 	console.log('US connection closed! Server not able to work anymore. Please restart');
 });
+
+function setServiceState()
+{
+	connection.query("select * from vars where id=1;", function (error, results, fields) 
+    {
+    	if(results[0].value == 2)
+    	{
+    		bookingOpen = true;
+    	}
+    	else
+    	{
+    		bookingOpen = false;
+    	}
+    });
+}
 
 function checkMessageValiditie(message)
 {
@@ -189,7 +207,7 @@ app.get('/reserv', function (req, res)
 
 	if(clientStatus)
 	{
-		generator.generateReservPage(url.parse(req.url).query, function(page)
+		generator.generateReservPage(url.parse(req.url).query, bookingOpen, function(page)
 		{
 			res.send(page);
 		});
@@ -586,6 +604,7 @@ function book(data, callback)
 	        			}
 	        			else
 	        			{
+	        				client.write("rt=update;m=new_infos;");
 	        				motif[0] = '0';
 	        				data[1](motif);
 	        				callback();
@@ -612,4 +631,6 @@ function processQueue()
 
 http.listen(8080, function () {
 	console.log('Server running ...');
-})
+});
+
+setServiceState();

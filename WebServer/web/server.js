@@ -558,10 +558,11 @@ function book(data, callback)
 
 	        		for(f of data[0][1][0])
 	        		{
-	        			for(var i = 0, length1 = results2.length; i < length1; i++)
+	        			for(var i = 0, length1 = results3.length; i < length1; i++)
 	        			{
 	        				if(results3[i].id == f)
 	        				{
+
 	        					if(foodQuantity[f] >= results3[i].quantity)
 	        					{
 	        						reserv = false;
@@ -593,12 +594,11 @@ function book(data, callback)
 	        		query += "update badges set passed=1 where id="+results[0].id+";";
 
 	        		var t0 = process.hrtime();
-	        		console.log('Query start ' + t0);
 
 	        		connection.query(query, function (error4, results4, fields4)
 	        		{
 	        			var t1 = process.hrtime();
-	        			console.log('Query end ' + t1);
+	        			console.log('dT: ' + ((t1[0] + t1[1]*1e-9) - (t0[0] + t0[1]*1e-9)) * 1e3 + " ms");
 	        			if(error4)
 	        			{
 	        				console.log('Erreur lors de la réservation: '+error4);

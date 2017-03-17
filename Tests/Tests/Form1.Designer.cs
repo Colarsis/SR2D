@@ -50,7 +50,7 @@
             // 
             this.button1.Location = new System.Drawing.Point(12, 159);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(740, 49);
+            this.button1.Size = new System.Drawing.Size(827, 49);
             this.button1.TabIndex = 0;
             this.button1.Text = "Lancer le test";
             this.button1.UseVisualStyleBackColor = true;
@@ -150,7 +150,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(469, 55);
+            this.textBox3.Location = new System.Drawing.Point(482, 55);
             this.textBox3.Name = "textBox3";
             this.textBox3.PasswordChar = '*';
             this.textBox3.Size = new System.Drawing.Size(147, 20);
@@ -161,13 +161,13 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(312, 84);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(114, 13);
+            this.label6.Size = new System.Drawing.Size(164, 13);
             this.label6.TabIndex = 15;
-            this.label6.Text = "Table base de donnée";
+            this.label6.Text = "Nom d\'utilisateur base de donnée";
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(469, 81);
+            this.textBox4.Location = new System.Drawing.Point(482, 81);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(147, 20);
             this.textBox4.TabIndex = 14;
@@ -175,7 +175,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(646, 58);
+            this.label7.Location = new System.Drawing.Point(650, 58);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(19, 13);
             this.label7.TabIndex = 16;
@@ -184,7 +184,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(646, 84);
+            this.label8.Location = new System.Drawing.Point(650, 84);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(29, 13);
             this.label8.TabIndex = 17;
@@ -194,7 +194,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(764, 220);
+            this.ClientSize = new System.Drawing.Size(851, 220);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -211,6 +211,8 @@
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.button1);
+            this.MaximumSize = new System.Drawing.Size(867, 259);
+            this.MinimumSize = new System.Drawing.Size(867, 259);
             this.Name = "Form1";
             this.Text = "Test: réservation";
             this.ResumeLayout(false);

@@ -47,6 +47,8 @@ function book()
 	datas[0] = getUrlParameter('code');
 	datas[1] = getTicket();
 
+	console.log(datas);
+
 	$.post('final', datas, function(data)
 		{
 			switch(data[0])

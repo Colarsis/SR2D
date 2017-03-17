@@ -418,6 +418,7 @@ function sendUpdate()
 
 function checkReservation(data, callback)
 {
+
 	connection.query("select * from food;", function (error, results, fields) 
     {
         if (error) error;
@@ -519,9 +520,8 @@ function book(data, callback)
 			return;
     	}
 
-    	if(results[0].passed != 0)
+    	if(results[0] == undefined || results[0].passed != 0)
     	{
-    		console.log('Motif: 1');
     		motif[0] = '1';
     		data[1](motif);
     		callback();
@@ -592,8 +592,13 @@ function book(data, callback)
 
 	        		query += "update badges set passed=1 where id="+results[0].id+";";
 
+	        		var t0 = process.hrtime();
+	        		console.log('Query start ' + t0);
+
 	        		connection.query(query, function (error4, results4, fields4)
 	        		{
+	        			var t1 = process.hrtime();
+	        			console.log('Query end ' + t1);
 	        			if(error4)
 	        			{
 	        				console.log('Erreur lors de la réservation: '+error4);

@@ -9,14 +9,16 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Web.Script;
+using System.Web.Script.Serialization;
+using System.Diagnostics;
+using MySql.Data.MySqlClient;
 
 namespace Tests
-{n
+{
 
     public partial class Form1 : Form
     {
-
-        public TimeSpan dt;
 
         public Form1()
         {
@@ -25,9 +27,6 @@ namespace Tests
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-            init();
-
             if (radioButton1.Checked)
             {
                 runSyncO();
@@ -44,56 +43,76 @@ namespace Tests
 
         public void runSyncO()
         {
-            DateTime start;
+            try
+            {
+                Stopwatch sw = new Stopwatch();
 
-            WebRequest request = WebRequest.Create("http://"+textBox1.Text+":8080/final");
-            WebRequest request2 = WebRequest.Create("http://" + textBox1.Text + ":8080/final");
+                label8.Text = "Etat: Initialisation";
+                label7.Text = "dt:";
 
-            request.Method = "POST";
-            request2.Method = "POST";
+                init();
 
-            string postData = "";
-            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
-            string postData2 = "";
-            byte[] byteArray2 = Encoding.UTF8.GetBytes(postData2);
+                WebRequest request = WebRequest.Create("http://" + textBox1.Text + ":8080/final");
+                WebRequest request2 = WebRequest.Create("http://" + textBox1.Text + ":8080/final");
 
-            request.ContentType = "application/x-www-form-urlencoded";
-            request2.ContentType = "application/x-www-form-urlencoded";
+                request.Method = "POST";
+                request2.Method = "POST";
 
-            request.ContentLength = byteArray.Length;
-            request2.ContentLength = byteArray2.Length;
+                object[] postData = new object[] { "1", new object[] { new object[] { "11" } } };
+                object[] postData2 = new object[] { "2", new object[] { new object[] { "11" } } };
 
-            Stream dataStream = request.GetRequestStream();
-            start = DateTime.Now;
-            Stream dataStream2 = request2.GetRequestStream();
-            dt = new TimeSpan((long)((DateTime.Now - start).TotalMilliseconds)*10);
+                request.ContentType = "application/json";
+                request2.ContentType = "application/json";
 
-            dataStream.Write(byteArray, 0, byteArray.Length);
-            dataStream2.Write(byteArray2, 0, byteArray2.Length);
+                label8.Text = "Etat: En cours";
 
-            dataStream.Close();
-            dataStream2.Close();
+                sw.Start();
+                StreamWriter dataStream = new StreamWriter(request.GetRequestStream());
+                StreamWriter dataStream2 = new StreamWriter(request2.GetRequestStream());
+                sw.Stop();
 
-            WebResponse response = request.GetResponse();
-            WebResponse response2 = request2.GetResponse();
+                dataStream.Write(new JavaScriptSerializer().Serialize(postData));
+                dataStream2.Write(new JavaScriptSerializer().Serialize(postData2));
 
-            dataStream = response.GetResponseStream();
-            dataStream2 = response2.GetResponseStream();
+                dataStream.Close();
+                dataStream2.Close();
 
-            StreamReader reader = new StreamReader(dataStream);
-            StreamReader reader2 = new StreamReader(dataStream2);
+                WebResponse response = request.GetResponse();
+                WebResponse response2 = request2.GetResponse();
 
-            string responseFromServer = reader.ReadToEnd();
-            string responseFromServer2 = reader2.ReadToEnd();
+                Stream dataStreamR = response.GetResponseStream();
+                Stream dataStreamR2 = response2.GetResponseStream();
 
-            reader.Close();
-            dataStream.Close();
-            response.Close();
-            reader2.Close();
-            dataStream2.Close();
-            response2.Close();
+                StreamReader reader = new StreamReader(dataStreamR);
+                StreamReader reader2 = new StreamReader(dataStreamR2);
 
-            clear();
+                string responseFromServer = reader.ReadToEnd();
+                string responseFromServer2 = reader2.ReadToEnd();
+
+                label1.Text = "Résultat requête 1: " + responseFromServer;
+                label2.Text = "Résultat requête 1: " + responseFromServer2;
+
+                label7.Text = "dt: " + sw.Elapsed.TotalMilliseconds + " ms";
+
+                reader.Close();
+                dataStream.Close();
+                response.Close();
+                reader2.Close();
+                dataStream2.Close();
+                response2.Close();
+
+                label8.Text = "Etat: Terminé";
+            }
+            catch(Exception e)
+            {
+                DialogResult dr = MessageBox.Show("Erreur" + e.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                label8.Text = "Etat: Erreur";
+            }    
+            finally
+            {
+                clear();
+            }
         }
 
         public void runSyncM()
@@ -112,12 +131,39 @@ namespace Tests
 
         public void clear()
         {
+            try
+            {
+                MySqlConnection connection = new MySqlConnection("server=" + textBox2.Text + ";port=3306;uid=" + textBox4.Text + ";pwd=" + textBox3.Text + ";database=dev;");
 
+                connection.Open();
+
+                MySqlCommand cmd = new MySqlCommand("TRUNCATE TABLE booking;" +
+                                                    "DELETE FROM badges WHERE name='test1';" +
+                                                    "DELETE FROM badges WHERE name='test2';", connection);
+
+                cmd.ExecuteNonQuery();
+
+                connection.Close();
+            }
+            catch(Exception e){}
+            
         }
 
         public void init()
         {
-        
+            MySqlConnection connection = new MySqlConnection("server=" + textBox2.Text + ";port=3306;uid=" + textBox4.Text + ";pwd=" + textBox3.Text + ";database=dev;");
+
+            connection.Open();
+
+            MySqlCommand cmd = new MySqlCommand("INSERT INTO badges(first_name, name, code_id, class_code, class_fullname, passed, retired) values('test1', 'test1', 1, 'test1', 'test1', 0, 0);" +
+                                                "INSERT INTO badges(first_name, name, code_id, class_code, class_fullname, passed, retired) values('test2', 'test2', 2, 'test2', 'test2', 0, 0);" +
+                                                "UPDATE vars SET k=2 WHERE id=1;" +
+                                                "UPDATE food SET quantity=1 WHERE id=11;" +
+                                                "TRUNCATE TABLE booking", connection);
+
+            cmd.ExecuteNonQuery();
+
+            connection.Close();
         }
 
     }   

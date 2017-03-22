@@ -20,9 +20,13 @@ namespace Tests
     public partial class Form1 : Form
     {
 
-        public Form1()
+        Main mF;
+
+        public Form1(Main mF)
         {
             InitializeComponent();
+
+            this.mF = mF;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -162,6 +166,7 @@ namespace Tests
                 StreamReader reader2 = new StreamReader(dataStreamR2);
 
                 string responseFromServer = reader.ReadToEnd();
+
                 string responseFromServer2 = reader2.ReadToEnd();
 
                 label1.Text = "Résultat requête 1: " + responseFromServer;
@@ -225,6 +230,11 @@ namespace Tests
             cmd.ExecuteNonQuery();
 
             connection.Close();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            mF.button1.Enabled = true;
         }
 
     }   

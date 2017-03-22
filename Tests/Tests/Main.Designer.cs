@@ -43,7 +43,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Logiciel de test des systemes informatiques SR2D";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // button1
             // 
@@ -53,6 +52,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "Réservation";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -62,6 +62,7 @@
             this.button2.TabIndex = 2;
             this.button2.Text = "Charge serveur";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label2
             // 
@@ -99,7 +100,6 @@
             this.MinimumSize = new System.Drawing.Size(413, 135);
             this.Name = "Main";
             this.Text = "SR2D-Tests";
-            this.Load += new System.EventHandler(this.Main_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,9 +108,9 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        public System.Windows.Forms.Button button1;
+        public System.Windows.Forms.Button button2;
     }
 }

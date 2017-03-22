@@ -202,6 +202,7 @@
             this.MinimumSize = new System.Drawing.Size(867, 259);
             this.Name = "Form1";
             this.Text = "Test: réservation";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -127,7 +127,7 @@ namespace SR2DServer.Network
             }
             catch(Exception e)
             {
-                writeConsole("Erreur : " + e.Message);
+                Console.WriteLine("Erreur : " + e.StackTrace);
             }
             finally
             {

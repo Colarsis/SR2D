@@ -63,14 +63,19 @@ namespace Tests
         {
             for(int i = 0; i < numericUpDown1.Value; i++)
             {
-                Connection co = new Connection();
+                Connection co = new Connection(textBox3.Text);
 
-                co.start();
-
-                connections.Add(co);
+                if(co.start())
+                {
+                    if(co.connect(textBox1.Text, textBox2.Text))
+                    {
+                        connections.Add(co);
+                    }
+                }
 
                 Thread.Sleep(new TimeSpan((long)(numericUpDown2.Value * 1000)));
             }
+
         }
     }
 }

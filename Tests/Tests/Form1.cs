@@ -223,7 +223,7 @@ namespace Tests
 
             MySqlCommand cmd = new MySqlCommand("INSERT INTO badges(first_name, name, code_id, class_code, class_fullname, passed, retired) values('test1', 'test1', 1, 'test1', 'test1', 0, 0);" +
                                                 "INSERT INTO badges(first_name, name, code_id, class_code, class_fullname, passed, retired) values('test2', 'test2', 2, 'test2', 'test2', 0, 0);" +
-                                                "UPDATE vars SET k=2 WHERE id=1;" +
+                                                "UPDATE vars SET k='2' WHERE id=1;" +
                                                 "UPDATE food SET quantity=1 WHERE id=11;" +
                                                 "TRUNCATE TABLE booking", connection);
 

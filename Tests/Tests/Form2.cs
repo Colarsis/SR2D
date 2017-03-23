@@ -16,7 +16,11 @@ namespace Tests
 
         Main mF;
 
+        int connectionsNbr = 0;
+
         List<Connection> connections = new List<Connection>();
+
+        public delegate void connectionCountDelegate();
 
         public Form2(Main mF)
         {
@@ -51,7 +55,7 @@ namespace Tests
 
         private void runWorker(object sender, DoWorkEventArgs e)
         {
-            addingControler();
+            addingControler((BackgroundWorker)sender);
         }
 
         private void addingComplete(object sender, RunWorkerCompletedEventArgs e)
@@ -59,7 +63,25 @@ namespace Tests
             this.Enabled = true;
         }
 
-        public void addingControler()
+        private void updateCounter()
+        {
+            if(label1.InvokeRequired)
+            {
+                connectionCountDelegate c = new connectionCountDelegate(uC);
+                Invoke(c);
+            }
+            else
+            {
+                uC();
+            }
+        }
+
+        private void uC()
+        {
+            label1.Text = "Nbr connections: " + connectionsNbr;
+        }
+
+        public void addingControler(BackgroundWorker sender)
         {
             for(int i = 0; i < numericUpDown1.Value; i++)
             {
@@ -70,6 +92,10 @@ namespace Tests
                     if(co.connect(textBox1.Text, textBox2.Text))
                     {
                         connections.Add(co);
+
+                        connectionsNbr++;
+
+                        updateCounter();
                     }
                 }
 

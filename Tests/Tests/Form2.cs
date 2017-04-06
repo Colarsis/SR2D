@@ -32,6 +32,33 @@ namespace Tests
 
         private void button1_Click(object sender, EventArgs e)
         {
+            foreach(Connection c in connections)
+            {
+                c.updated = false;
+            }
+
+            connections[0].sendUpdate();
+
+            this.Enabled = false;
+
+            MessageBox.Show("Veuillez patienter 10 secondes ...", "Veuillez patienter", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            Thread.Sleep(10000);
+
+            int uCount = 0;
+
+            foreach(Connection c in connections)
+            {
+                if(c.updated)
+                {
+                    uCount++;
+                }
+
+            }
+
+            label4.Text = "Nbr réponses: " + uCount;
+
+            this.Enabled = true;
 
         }
 
@@ -98,8 +125,6 @@ namespace Tests
                         updateCounter();
                     }
                 }
-
-                Thread.Sleep(new TimeSpan((long)(numericUpDown2.Value * 1000)));
             }
 
         }

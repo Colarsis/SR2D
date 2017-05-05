@@ -40,19 +40,27 @@
                             '<html>'+
                                 '<head>'+
                                     '<meta charset="utf8"/>'+
-                                    '<title>Erreur</title>'+
+                                    '<title>Succès</title>'+
                                     '<link rel="stylesheet" href="../css/menu.css">'+
+                                    '<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">'+
+                                    '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
+                                    '<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>'+
+                                    '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">'+
+                                    '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>'+
+                                    '<link rel="stylesheet" href="../css/accueil.css" />'+
+                                    '<script src="../js/reset.js"></script>'+
+                                    '<title>SR2D</title>'+
                                 '</head>'+
-                                '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
-                                '<script src="../js/jquery.history.js"></script>'+
-                                '<script src="../js/reset.js"></script>'+
                                 '<body>'+
-                                    '<article id="test">'+
-                                        '<span style="position: absolute; top: 100px; left: 360px;">'+
-                                            '<p>Une réservation a déjà été éffectuée avec votre badge.</p>'+
-                                        '</span>'+
-                                        '<button id="btn">Retour</button>'+
-                                    '</article>'+ 
+                                    '<div id="header">'+
+                                        '<div id="headerTitle">'+
+                                            '<p>SR2D</p>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div id="mainText">'+
+                                        '<p>Une réservation a déjà</p>'+
+                                        '<p>été effectuée avec votre badge</p>'+
+                                    '</div>'+
                                 '</body>'+
                             '</html>';
 
@@ -64,17 +72,26 @@
                             '<html>'+
                                 '<head>'+
                                     '<meta charset="utf8"/>'+
-                                    '<title>Erreur</title>'+
+                                    '<title>Succès</title>'+
                                     '<link rel="stylesheet" href="../css/menu.css">'+
+                                    '<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">'+
+                                    '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
+                                    '<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>'+
+                                    '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">'+
+                                    '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>'+
+                                    '<link rel="stylesheet" href="../css/accueil.css" />'+
+                                    '<script src="../js/reset.js"></script>'+
+                                    '<title>SR2D</title>'+
                                 '</head>'+
-                                '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
-                                '<script src="../js/jquery.history.js"></script>'+
-                                '<script src="../js/reset.js"></script>'+
                                 '<body>'+
-                                    '<article id="test">'+
-                                        '<span style="position: absolute; top: 100px; left: 360px;">'+
-                                            '<p>Nous sommes désolés, mais les produits suivants ne sont plus disponibles, veuillez recommencer votre réservation.</p>'+
-                                            '<p></p>';
+                                    '<div id="header">'+
+                                        '<div id="headerTitle">'+
+                                            '<p>SR2D</p>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div id="mainText">'+
+                                        '<p>Nous sommes désolés, mais les produits suivants ne sont plus disponibles, veuillez recommencer votre réservation.</p>'+
+                                        '<p></p>';
                 
                 var foods = parameters.split("&")[1].split("=")[1].split(',');
 
@@ -83,11 +100,9 @@
                     page += ('<p>' + f + '</p>');
                 }
 
-                                    page += '</span>'+
-                                        '<button id="btn">Retour</button>'+
-                                    '</article>'+ 
-                                '</body>'+
-                            '</html>';
+                                    page += '</div>'+
+                                            '</body>'+
+                                        '</html>';
 
                 callback(page);
                 
@@ -97,20 +112,27 @@
                             '<html>'+
                                 '<head>'+
                                     '<meta charset="utf8"/>'+
-                                    '<title>Erreur</title>'+
+                                    '<title>Succès</title>'+
                                     '<link rel="stylesheet" href="../css/menu.css">'+
+                                    '<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">'+
+                                    '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
+                                    '<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>'+
+                                    '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">'+
+                                    '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>'+
+                                    '<link rel="stylesheet" href="../css/accueil.css" />'+
+                                    '<script src="../js/reset.js"></script>'+
+                                    '<title>SR2D</title>'+
                                 '</head>'+
-                                '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
-                                '<script src="../js/jquery.history.js"></script>'+
-                                '<script src="../js/reset.js"></script>'+
                                 '<body>'+
-                                    '<article id="test">'+
-                                        '<span style="position: absolute; top: 100px; left: 360px;">'+
-                                            '<p>Une erreur s\'est produite lors de la réservation. Veuillez réessayer.</p>'+
-                                            '<p>En cas de disfonctionnements répétés, veuillez contacter l\'administrateur.</p>'+
-                                        '</span>'+
-                                        '<button id="btn">Retour</button>'+
-                                    '</article>'+ 
+                                    '<div id="header">'+
+                                        '<div id="headerTitle">'+
+                                            '<p>SR2D</p>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div id="mainText">'+
+                                        '<p>Une erreur s\'est produite lors de la réservation. Veuillez réessayer.</p>'+
+                                        '<p>En cas de disfonctionnements répétés, veuillez contacter l\'administrateur.</p>'+
+                                    '</div>'+
                                 '</body>'+
                             '</html>';
 
@@ -128,17 +150,25 @@
                                     '<meta charset="utf8"/>'+
                                     '<title>Succès</title>'+
                                     '<link rel="stylesheet" href="../css/menu.css">'+
+                                    '<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">'+
+                                    '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
+                                    '<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>'+
+                                    '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">'+
+                                    '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>'+
+                                    '<link rel="stylesheet" href="../css/accueil.css" />'+
+                                    '<script src="../js/reset.js"></script>'+
+                                    '<title>SR2D</title>'+
                                 '</head>'+
-                                '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
-                                '<script src="../js/jquery.history.js"></script>'+
-                                '<script src="../js/reset.js"></script>'+
                                 '<body>'+
-                                    '<article id="test">'+
-                                        '<span style="position: absolute; top: 100px; left: 360px;">'+
-                                            '<p>Votre réservation a bien été enregistrée. Bonne journée !</p>'+
-                                        '</span>'+
-                                        '<button id="btn">Retour</button>'+
-                                    '</article>'+ 
+                                    '<div id="header">'+
+                                        '<div id="headerTitle">'+
+                                            '<p>SR2D</p>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div id="mainText">'+
+                                        '<p>Votre commande a bien été enregistrée</p>'+
+                                        '<p>Bonne journée</p>'+
+                                    '</div>'+
                                 '</body>'+
                             '</html>';
 
@@ -163,27 +193,39 @@
                                             '<meta charset="utf8"/>'+
                                             '<title>SR2D</title>'+
                                             '<link rel="stylesheet" href="css/menu.css">'+
+                                            '<link rel="stylesheet" href="css/accueil.css">'+
                                         '</head>'+
                                         '<script src="js/socket.io.js"></script>'+
                                         '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
                                         '<script src="js/socket.js"></script>'+
                                         '<script src="js/jquery.history.js"></script>'+
-                                        '<script src="js/main.js"></script>'+
+                                        '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">'+
+                                        '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>'+
                                         '<body>'+
-                                            '<article id="test">'+
-                                                    '<div id="ticket">'+
-                                                        '<div class="foodListItem" id ="food-11">'+
-                                                            '<p>9</p>'+
+                                            '<div id="header">'+
+                                                '<div id="headerTitle">'+
+                                                    '<p>SR2D</p>'+
+                                                '</div>'+
+                                                '<div class="progress">'+
+                                                    '<div id="progressbar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">50%'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            '<div id="container">'+
+                                                '<div id="topbar"><p>Veuillez choisir:</p></div>'+
+                                                    '<div id="main">'+
+                                                        '<div id="column_left">'+       
+                                                        '</div>'+
+                                                        '<div id="column_right">'+
+                                                            'Commande :'+
+                                                            '<div id="ticket">'+
+                                                            '</div>'+
                                                         '</div>'+
                                                     '</div>'+
-                                                    '<div id="chosingPanel">'+
-                                                    '</div>'+
-                                                    '<span style="position: absolute; top: 100px; left: 360px;">'+
-                                                        '<p>Bonjour '+results[0].first_name+' '+results[0].name+'</p>'+
-                                                    '</span>'+
-                                                    '<button id="btn">Valider</button>'+
-                                            '</article>'+ 
+                                                '</div>'+
+                                            '</div>'+
                                         '</body>'+
+                                        '<script src="js/main.js"></script>'+
                                     '</html>';
 
                         callback(page);
@@ -193,24 +235,34 @@
             else
             {
                 var page =  '<!DOCTYPE html>'+
-                                '<html>'+
-                                    '<head>'+
-                                        '<meta charset="utf8"/>'+
-                                        '<title>Erreur</title>'+
-                                        '<link rel="stylesheet" href="../css/menu.css">'+
-                                    '</head>'+
+                            '<html>'+
+                                '<head>'+
+                                    '<meta charset="utf-8" />'+
+                                    '<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">'+
                                     '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
-                                    '<script src="../js/jquery.history.js"></script>'+
-                                    '<script src="../js/reset.js"></script>'+
-                                    '<body>'+
-                                        '<article id="test">'+
-                                            '<span style="position: absolute; top: 100px; left: 360px;">'+
-                                                '<p>Les réservations ne sont pas ouvertes pour le moment.</p>'+
-                                            '</span>'+
-                                            '<button id="btn">Retour</button>'+
-                                        '</article>'+ 
-                                    '</body>'+
-                                '</html>';
+                                    '<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>'+
+                                    '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">'+
+                                    '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>'+
+                                    '<link rel="stylesheet" href="accueil.css" />'+
+                                    '<title>SR2D</title>'+
+                                '</head>'+
+                                '<body>'+
+                                    '<div id="header">'+
+                                        '<div id="headerTitle">'+
+                                            '<p>SR2D</p>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div id="mainText">'+
+                                        '<p>Bonjour,</p>'+
+                                        '<p>les réservations ne sont pas ouvertes !</p>'+
+                                    '</div>'+
+                                    '<footer>'+
+                                        '<span style="position: absolute; top: 550px; left: 1140px;">'+
+                                        '<a href= "P2.html" class="btn btn-primary btn-lg active" href="#" role="button">Valider</a>'+
+                                        '</span>'+
+                                    '</footer>'+
+                                '</body>'+
+                            '</html>';
 
                     callback(page);
             }
@@ -218,24 +270,29 @@
         else
         {
             var page =  '<!DOCTYPE html>'+
-                        '<html>'+
-                            '<head>'+
-                                '<meta charset="utf8"/>'+
-                                '<title>Erreur</title>'+
-                                '<link rel="stylesheet" href="../css/menu.css">'+
-                            '</head>'+
-                            '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
-                            '<script src="../js/jquery.history.js"></script>'+
-                            '<script src="../js/reset.js"></script>'+
-                            '<body>'+
-                                '<article id="test">'+
-                                    '<span style="position: absolute; top: 100px; left: 360px;">'+
-                                        '<p>Ce code n\'est pas attribué !</p>'+
-                                    '</span>'+
-                                    '<button id="btn">Retour</button>'+
-                                '</article>'+ 
-                            '</body>'+
-                        '</html>';
+                            '<html>'+
+                                '<head>'+
+                                    '<meta charset="utf-8" />'+
+                                    '<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">'+
+                                    '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>'+
+                                    '<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>'+
+                                    '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">'+
+                                    '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>'+
+                                    '<link rel="stylesheet" href="accueil.css" />'+
+                                    '<title>SR2D</title>'+
+                                '</head>'+
+                                '<body>'+
+                                    '<div id="header">'+
+                                        '<div id="headerTitle">'+
+                                            '<p>SR2D</p>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div id="mainText">'+
+                                        '<p>Bonjour,</p>'+
+                                        '<p>ce code n\'est pas attribué !</p>'+
+                                    '</div>'+
+                                '</body>'+
+                            '</html>';
 
             callback(page);
         }       
@@ -382,19 +439,36 @@
 
                                 if(menu != [])
                                 {
-                                    var page = '';
+                                    var page = '<ul class="nav nav-tabs">';
 
                                     for(m of menu)
                                     {
-                                        page += ('<div class="foodType" id="fT-'+m[0]+' name='+m[1]+'"><div class="foodsContainer" >');
-                                        //style="visibility: hidden;"
+                                        page += '<li role="presentation" class="">'+
+                                                    '<a href="#fT-'+m[0]+'" aria-controls="'+m[1]+'" role="tab" data-toggle="tab">'+m[1]+'</a></li>'+
+                                                '</li>';
+                                    }
+
+                                    page += '<script type="text/javascript">'+
+                                                    '$("#myTabs a").click(function (e) {'+
+                                                        'e.preventDefault();'+
+                                                        '$(this).tab("show");'+
+                                                    '});'+
+                                                '</script>'+
+                                            '</ul>'+
+                                            '<div class="tab-content">';
+
+                                    for(m of menu)
+                                    {
+                                        page += ('<div role="tabpanel" class="tab-pane" id="fT-'+m[0]+'">');
 
                                             for(f of m[2])
                                             {
-                                                page += ('<div class="food" id="f-'+f[0]+'">'+f[1]+'</div>');
+                                                page += '<span id="f-'+f[0]+'" onClick="ajouter_bouffe(\''+f[0]+'\', \''+f[1]+'\')">'+
+                                                            '<a href="#" class="btn btn-primary btn-lg btn-block disabled" role="button"><img src="image.jpg" alt="" />'+f[1]+'</a>'+
+                                                        '</span>';
                                             }
 
-                                        page += '</div></div>';
+                                        page += '</div>';
                                     }
                                          
                                     callback(page);

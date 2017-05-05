@@ -194,7 +194,7 @@ app.get('/', function (req, res)
 {
 	if(clientStatus)
 	{
-		res.sendFile(__dirname + '/public/html/acceuil.html');
+		res.sendFile(__dirname + '/public/html/accueil.html');
 	}
 	else 
 	{
@@ -418,7 +418,6 @@ function sendUpdate()
 
 function checkReservation(data, callback)
 {
-
 	connection.query("select * from food;", function (error, results, fields) 
     {
         if (error) error;
@@ -520,8 +519,9 @@ function book(data, callback)
 			return;
     	}
 
-    	if(results[0] == undefined || results[0].passed != 0)
+    	if(results[0].passed != 0)
     	{
+    		console.log('Motif: 1');
     		motif[0] = '1';
     		data[1](motif);
     		callback();
@@ -529,98 +529,88 @@ function book(data, callback)
     	}
     	else
     	{
-    		connection.query("select * from vars where id=1;", function (error5, results5, fields5) 
-    		{
-	    		connection.query("select * from booking;", function (error2, results2, fields2) 
-	        	{
-	        		connection.query("select * from food;", function (error3, results3, fields3) 
+    		connection.query("select * from booking;", function (error2, results2, fields2) 
+        	{
+        		connection.query("select * from food;", function (error3, results3, fields3) 
+        		{
+        			if(error2 || error3)
+			    	{
+			    		console.log('Erreur lors de la réservation: '+error2+' '+error3);
+			    		motif[0] = '3';
+						data[1](motif);
+						callback();
+						return;
+			    	}
+
+	        		var foodQuantity = {};
+
+	        		for(var i = 0, length1 = results2.length; i < length1; i++)
 	        		{
-	        			//Ajouter la vérification de l'état du système
+	        			if(foodQuantity[results2[i].food_id] == undefined)
+	        			{
+	        				foodQuantity[results2[i].food_id] = 1;
+	        			}
+	        			else
+	        			{
+	        				foodQuantity[results2[i].food_id] = foodQuantity[results2[i].food_id] + 1;
+	        			}
+	        		}
 
-	        			if(error2 || error3)
-				    	{
-				    		console.log('Erreur lors de la réservation: '+error2+' '+error3);
-				    		motif[0] = '3';
-							data[1](motif);
-							callback();
-							return;
-				    	}
+	        		for(f of data[0][1][0])
+	        		{
+	        			for(var i = 0, length1 = results2.length; i < length1; i++)
+	        			{
+	        				if(results3[i].id == f)
+	        				{
+	        					if(foodQuantity[f] >= results3[i].quantity)
+	        					{
+	        						reserv = false;
+	        						motif[0] = '2';
+	        						motif[1].push(results3[i].name);
+	        					}
+	        					else
+	        					{
+	        						break;
+	        					}
+	        				}
+	        			}
+	        		}
 
-		        		var foodQuantity = {};
+	        		if(motif[0] == '2')
+	        		{
+	        			data[1](motif);
+	        			callback();
+	        			return;
+	        		}
 
-		        		for(var i = 0, length1 = results2.length; i < length1; i++)
-		        		{
-		        			if(foodQuantity[results2[i].food_id] == undefined)
-		        			{
-		        				foodQuantity[results2[i].food_id] = 1;
-		        			}
-		        			else
-		        			{
-		        				foodQuantity[results2[i].food_id] = foodQuantity[results2[i].food_id] + 1;
-		        			}
-		        		}
+	        		var query = "";
 
-		        		for(f of data[0][1][0])
-		        		{
-		        			for(var i = 0, length1 = results3.length; i < length1; i++)
-		        			{
-		        				if(results3[i].id == f)
-		        				{
+	        		for(f of data[0][1][0])
+	        		{
+	        			query += "insert into booking (badge_id, food_id) values("+results[0].id+", "+f+");";
+	        		}
 
-		        					if(foodQuantity[f] >= results3[i].quantity)
-		        					{
-		        						reserv = false;
-		        						motif[0] = '2';
-		        						motif[1].push(results3[i].name);
-		        					}
-		        					else
-		        					{
-		        						break;
-		        					}
-		        				}
-		        			}
-		        		}
+	        		query += "update badges set passed=1 where id="+results[0].id+";";
 
-		        		if(motif[0] == '2')
-		        		{
-		        			data[1](motif);
-		        			callback();
-		        			return;
-		        		}
-
-		        		var query = "";
-
-		        		for(f of data[0][1][0])
-		        		{
-		        			query += "insert into booking (badge_id, food_id) values("+results[0].id+", "+f+");";
-		        		}
-
-		        		query += "update badges set passed=1 where id="+results[0].id+";";
-
-		        		var t0 = process.hrtime();
-
-		        		connection.query(query, function (error4, results4, fields4)
-		        		{
-		        			var t1 = process.hrtime();
-		        			console.log('dT: ' + ((t1[0] + t1[1]*1e-9) - (t0[0] + t0[1]*1e-9)) * 1e3 + " ms");
-		        			if(error4)
-		        			{
-		        				console.log('Erreur lors de la réservation: '+error4);
-		        				motif[0] = '3';
-		        				data[1](motif);
-		        				callback();
-		        				return;
-		        			}
-		        			else
-		        			{
-		        				client.write("rt=update;m=new_infos;");
-		        				motif[0] = '0';
-		        				data[1](motif);
-		        				callback();
-		        				return;
-		        			}
-		        		});
-		        	});
+	        		connection.query(query, function (error4, results4, fields4)
+	        		{
+	        			if(error4)
+	        			{
+	        				console.log('Erreur lors de la réservation: '+error4);
+	        				motif[0] = '3';
+	        				data[1](motif);
+	        				callback();
+	        				return;
+	        			}
+	        			else
+	        			{
+	        				client.write("rt=update;m=new_infos;");
+	        				motif[0] = '0';
+	        				data[1](motif);
+	        				callback();
+	        				return;
+	        			}
+	        		});
 	        	});
         	});
     	}

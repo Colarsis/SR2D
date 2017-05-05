@@ -47,8 +47,6 @@ function book()
 	datas[0] = getUrlParameter('code');
 	datas[1] = getTicket();
 
-	console.log(datas);
-
 	$.post('final', datas, function(data)
 		{
 			switch(data[0])
@@ -79,28 +77,32 @@ $('document').ready(function()
 
 		}, 'text');
 
-	$('#chosingPanel').load('menu?code='+getUrlParameter('code')+'&ordre='+getUrlParameter('ordre'), getTicket());
+	$('#column_left').load('menu?code='+getUrlParameter('code')+'&ordre='+getUrlParameter('ordre'), getTicket());
 });
 
-$(function()
+function ajouter_bouffe(id, name)
 {
-	$('#btn').click(function()
+	document.getElementById("ticket").innerHTML = document.getElementById("ticket").innerHTML + "<div class='foodListItem' id='fLI-"+id+"'>" + name + "</div>";
+
+	goNext();
+}
+
+function goNext()
+{
+	if(getUrlParameter('ordre') < maxOrdre)
 	{
-		if(getUrlParameter('ordre') < maxOrdre)
-		{
-			History.pushState(null, null, 'reserv?code='+getUrlParameter('code')+'&ordre='+(parseInt(getUrlParameter('ordre'))+1));
+		History.pushState(null, null, 'reserv?code='+getUrlParameter('code')+'&ordre='+(parseInt(getUrlParameter('ordre'))+1));
 
-			$('#chosingPanel').empty();
+		$('#column_left').empty();
 
-			$('#chosingPanel').load('menu?code='+getUrlParameter('code')+'&ordre='+getUrlParameter('ordre'), getTicket());
-		}
-		else
-		{
-			book();
-		}
-	});
+		$('#column_left').load('menu?code='+getUrlParameter('code')+'&ordre='+getUrlParameter('ordre'), getTicket());
+	}
+	else
+	{
+		book();
+	}
 
 	$(window).bind('statechange',function(){
-		$('#chosingPanel').load('menu?code='+getUrlParameter('code')+'&ordre='+getUrlParameter('ordre'), getTicket());
+		$('#column_left').load('menu?code='+getUrlParameter('code')+'&ordre='+getUrlParameter('ordre'), getTicket());
 	});
-});
+}

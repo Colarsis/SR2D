@@ -150,6 +150,8 @@ namespace SR2DAdminApp.Forms
 
             populateDispList();
 
+            updatePrep();
+
             #endregion
 
             setServiceMode();
@@ -172,6 +174,7 @@ namespace SR2DAdminApp.Forms
                     updateButton(ServiceStates.Stopped);
                     tabControl1.Enabled = false;
                     objectListView1.Visible = false;
+                    objectListView2.Visible = false;
                     cartesianChart1.Visible = false;
                     cartesianChart2.Visible = false;
                     label1.Visible = false;
@@ -185,6 +188,7 @@ namespace SR2DAdminApp.Forms
                     updateButton(ServiceStates.Preparation);
                     tabControl1.Enabled = true;
                     objectListView1.Visible = true;
+                    objectListView2.Visible = false;
                     cartesianChart1.Visible = false;
                     cartesianChart2.Visible = false;
                     label1.Visible = false;
@@ -198,6 +202,7 @@ namespace SR2DAdminApp.Forms
                     updateButton(ServiceStates.Booking);
                     tabControl1.Enabled = true;
                     objectListView1.Visible = false;
+                    objectListView2.Visible = false;
                     cartesianChart1.Visible = true;
                     cartesianChart2.Visible = true;
                     label1.Visible = true;
@@ -211,6 +216,7 @@ namespace SR2DAdminApp.Forms
                     updateButton(ServiceStates.Concoction);
                     tabControl1.Enabled = true;
                     objectListView1.Visible = false;
+                    objectListView2.Visible = true;
                     cartesianChart1.Visible = true;
                     cartesianChart2.Visible = true;
                     label1.Visible = true;
@@ -224,6 +230,7 @@ namespace SR2DAdminApp.Forms
                     updateButton(ServiceStates.Distribution);
                     tabControl1.Enabled = true;
                     objectListView1.Visible = false;
+                    objectListView2.Visible = true;
                     cartesianChart1.Visible = true;
                     cartesianChart2.Visible = true;
                     label1.Visible = true;
@@ -237,6 +244,7 @@ namespace SR2DAdminApp.Forms
                     updateButton(ServiceStates.Ended);
                     tabControl1.Enabled = true;
                     objectListView1.Visible = false;
+                    objectListView2.Visible = true;
                     cartesianChart1.Visible = true;
                     cartesianChart2.Visible = true;
                     label1.Visible = true;
@@ -252,7 +260,6 @@ namespace SR2DAdminApp.Forms
         {
             if (this.InvokeRequired)
             {
-
                 setServiceMode();
 
                 if (currentStatus != ServiceStates.Stopped)
@@ -280,19 +287,18 @@ namespace SR2DAdminApp.Forms
 
         public void updatePrep()
         {
-            if(currentStatus == ServiceStates.Ended || currentStatus == ServiceStates.Distribution || currentStatus == ServiceStates.Concoction)
+            objectListView2.Items.Clear();
+
+            List<Booking> bookings = new List<Booking>();
+
+            foreach (DataRow booking in db.Ds.Dataset.Tables["booking"].Rows)
             {
-                objectListView2.Items.Clear();
-
-                List<Booking> bookings = new List<Booking>();
-
-                foreach (DataRow booking in db.Ds.Dataset.Tables["booking"].Rows)
-                {
-                    bookings.Add(new Booking(int.Parse(booking.ItemArray[0].ToString()), booking.ItemArray[1].ToString(), booking.ItemArray[2].ToString()));
-                }
-
-
+                bookings.Add(new Booking(int.Parse(booking.ItemArray[0].ToString()), booking.ItemArray[1].ToString(), booking.ItemArray[2].ToString()));
             }
+
+            objectListView2.AddObjects(bookings);
+
+            objectListView2.Sort(1);
         }
 
         public void resetBooking()

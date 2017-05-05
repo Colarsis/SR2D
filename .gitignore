@@ -252,15 +252,11 @@ paket-files/
 *.sln.iml
 
 #Ignore unwanted files in web page
-*.html
-*.css
 *.json
 *.xml
 WebServer/web/cfg/
 WebServer/node_modules/
 WebServer/nodejs/
-WebServer/web/public/html/
-WebServer/web/public/css/
 WebServer/web/public/media/
 WebServer/web/public/js/socket.io.js
 WebServer/web/public/js/socket.io.min.js

@@ -89,7 +89,7 @@ namespace Tests
                 string responseFromServer2 = reader2.ReadToEnd();
 
                 label1.Text = "Résultat requête 1: " + responseFromServer;
-                label2.Text = "Résultat requête 1: " + responseFromServer2;
+                label2.Text = "Résultat requête 2: " + responseFromServer2;
 
                 label7.Text = "dt: " + sw.Elapsed.TotalMilliseconds + " ms";
 
@@ -170,7 +170,7 @@ namespace Tests
                 string responseFromServer2 = reader2.ReadToEnd();
 
                 label1.Text = "Résultat requête 1: " + responseFromServer;
-                label2.Text = "Résultat requête 1: " + responseFromServer2;
+                label2.Text = "Résultat requête 2: " + responseFromServer2;
 
                 label7.Text = "dt: " + sw.Elapsed.TotalMilliseconds + " ms";
 
